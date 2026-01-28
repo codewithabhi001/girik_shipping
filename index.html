@@ -1,74 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GIRIK Shipping | Digital Maritime Certification & Compliance Platform</title>
-    <meta name="description" content="GIRIK Shipping is a technology-driven maritime classification and certification platform. 100% digital certificates, instant QR verification, and global compliance.">
-    <meta name="keywords" content="maritime certification, ship classification, digital certificates, vessel compliance, IMO, QR verification, maritime technology">
-    <meta name="author" content="GIRIK Shipping">
-    <link rel="canonical" href="https://girikshipping.com" />
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="GIRIK Shipping | Digital Maritime Certification" />
-    <meta property="og:description" content="The world's first fully digital Classification & Certification platform. Verify any vessel, anywhere, instantly." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://girikshipping.com" />
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'navy': {
-                50: '#e6eaf0',
-                100: '#c0c9d9',
-                200: '#96a5bf',
-                300: '#6c81a5',
-                400: '#4d6692',
-                500: '#2d4b7f',
-                600: '#0B2545',
-                700: '#091d38',
-                800: '#07162b',
-                900: '#050f1e',
-              },
-              'teal': {
-                50: '#e0f7f4',
-                100: '#b3ebe3',
-                200: '#80ddd0',
-                300: '#4dcfbd',
-                400: '#26c4af',
-                500: '#00A896',
-                600: '#009785',
-                700: '#008474',
-                800: '#007163',
-                900: '#005347',
-              },
-              'signal': {
-                50: '#fef3f0',
-                100: '#fce0d8',
-                200: '#f9c1b1',
-                300: '#f6a28a',
-                400: '#f28462',
-                500: '#EE6C4D',
-                600: '#d85a3d',
-                700: '#b84a32',
-                800: '#983b28',
-                900: '#782c1d',
-              }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIRIK Shipping | Digital Maritime Certification & Compliance Platform</title>
+  <meta name="description"
+    content="GIRIK Shipping is a technology-driven maritime classification and certification platform. 100% digital certificates, instant QR verification, and global compliance.">
+  <meta name="keywords"
+    content="maritime certification, ship classification, digital certificates, vessel compliance, IMO, QR verification, maritime technology">
+  <meta name="author" content="GIRIK Shipping">
+  <link rel="canonical" href="https://girikshipping.com" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="GIRIK Shipping | Digital Maritime Certification" />
+  <meta property="og:description"
+    content="The world's first fully digital Classification & Certification platform. Verify any vessel, anywhere, instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://girikshipping.com" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'navy': {
+              50: '#e6eaf0',
+              100: '#c0c9d9',
+              200: '#96a5bf',
+              300: '#6c81a5',
+              400: '#4d6692',
+              500: '#2d4b7f',
+              600: '#0B2545',
+              700: '#091d38',
+              800: '#07162b',
+              900: '#050f1e',
             },
-            fontFamily: {
-              'heading': ['Montserrat', 'sans-serif'],
-              'body': ['Inter', 'sans-serif'],
+            'teal': {
+              50: '#e0f7f4',
+              100: '#b3ebe3',
+              200: '#80ddd0',
+              300: '#4dcfbd',
+              400: '#26c4af',
+              500: '#00A896',
+              600: '#009785',
+              700: '#008474',
+              800: '#007163',
+              900: '#005347',
+            },
+            'signal': {
+              50: '#fef3f0',
+              100: '#fce0d8',
+              200: '#f9c1b1',
+              300: '#f6a28a',
+              400: '#f28462',
+              500: '#EE6C4D',
+              600: '#d85a3d',
+              700: '#b84a32',
+              800: '#983b28',
+              900: '#782c1d',
             }
+          },
+          fontFamily: {
+            'heading': ['Montserrat', 'sans-serif'],
+            'body': ['Inter', 'sans-serif'],
           }
         }
       }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    }
+  </script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap"
+    rel="stylesheet">
+  <!-- SPA redirect script for GitHub Pages -->
+  <script type="text/javascript">
+      // This script checks to see if a redirect is present in the query string,
+      // converts it back into the correct URL and adds it to the browser's history
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function (s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+  </script>
 
-    <script type="importmap">
+  <script type="importmap">
     {
       "imports": {
         "react/": "https://esm.sh/react@^19.2.4/",
@@ -78,10 +99,12 @@
       }
     }
     </script>
-    <script type="module" crossorigin src="/girik_shipping/assets/index-BEThLsvt.js"></script>
-    <link rel="stylesheet" crossorigin href="/girik_shipping/assets/index-CEmpMr6-.css">
-  </head>
-  <body class="bg-white text-slate-800 font-body antialiased">
-    <div id="root"></div>
-  </body>
+  <script type="module" crossorigin src="/girik_shipping/assets/index-BQcI2bqV.js"></script>
+  <link rel="stylesheet" crossorigin href="/girik_shipping/assets/index-CEmpMr6-.css">
+</head>
+
+<body class="bg-white text-slate-800 font-body antialiased">
+  <div id="root"></div>
+</body>
+
 </html>
