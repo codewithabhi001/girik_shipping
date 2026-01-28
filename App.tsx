@@ -18,55 +18,64 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import LoginPage from './pages/LoginPage';
 
+// Page mapping for hash-based routing (works perfectly with GitHub Pages)
+const pageMap: { [key: string]: PageType } = {
+  '': 'home',
+  '#': 'home',
+  '#home': 'home',
+  '#about': 'about',
+  '#services': 'services',
+  '#how-it-works': 'how-it-works',
+  '#verify': 'verify',
+  '#contact': 'contact',
+  '#privacy': 'privacy',
+  '#terms': 'terms',
+  '#login': 'login',
+};
+
+const hashMap: { [key in PageType]: string } = {
+  'home': '',
+  'about': '#about',
+  'services': '#services',
+  'how-it-works': '#how-it-works',
+  'verify': '#verify',
+  'contact': '#contact',
+  'privacy': '#privacy',
+  'terms': '#terms',
+  'login': '#login',
+};
+
 const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<PageType>('home');
+  // Get initial page from URL hash
+  const getPageFromHash = (): PageType => {
+    const hash = window.location.hash;
+    return pageMap[hash] || 'home';
+  };
+
+  const [currentPage, setCurrentPage] = useState<PageType>(getPageFromHash);
 
   // Handle navigation
   const handleNavigate = (page: PageType) => {
     setCurrentPage(page);
+    window.location.hash = hashMap[page];
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Handle browser back/forward buttons
+  // Handle browser back/forward buttons and hash changes
   useEffect(() => {
-    const handlePopState = () => {
-      const path = window.location.pathname;
-      const pageMap: { [key: string]: PageType } = {
-        '/': 'home',
-        '/about': 'about',
-        '/services': 'services',
-        '/how-it-works': 'how-it-works',
-        '/verify': 'verify',
-        '/contact': 'contact',
-        '/privacy': 'privacy',
-        '/terms': 'terms',
-        '/login': 'login',
-      };
-      setCurrentPage(pageMap[path] || 'home');
+    const handleHashChange = () => {
+      const page = getPageFromHash();
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Also handle initial load
+    handleHashChange();
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
-
-  // Update URL when page changes
-  useEffect(() => {
-    const pathMap: { [key in PageType]: string } = {
-      'home': '/',
-      'about': '/about',
-      'services': '/services',
-      'how-it-works': '/how-it-works',
-      'verify': '/verify',
-      'contact': '/contact',
-      'privacy': '/privacy',
-      'terms': '/terms',
-      'login': '/login',
-    };
-    const newPath = pathMap[currentPage];
-    if (window.location.pathname !== newPath) {
-      window.history.pushState({}, '', newPath);
-    }
-  }, [currentPage]);
 
   // Render current page
   const renderPage = () => {
