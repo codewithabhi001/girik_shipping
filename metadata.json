@@ -1,0 +1,9 @@
+
+{
+  "name": "GIRIK Shipping - Digital Maritime Bureau",
+  "description": "The world's first fully digital maritime classification and certification platform. Compliance without complexity.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
