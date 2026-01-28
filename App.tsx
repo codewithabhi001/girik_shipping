@@ -18,8 +18,14 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import LoginPage from './pages/LoginPage';
 
+// Client Portal
+import ClientApp from './client/ClientApp';
+
+// Extended page type to include client portal
+type ExtendedPageType = PageType | 'client-portal';
+
 // Page mapping for hash-based routing (works perfectly with GitHub Pages)
-const pageMap: { [key: string]: PageType } = {
+const pageMap: { [key: string]: ExtendedPageType } = {
   '': 'home',
   '#': 'home',
   '#home': 'home',
@@ -31,9 +37,11 @@ const pageMap: { [key: string]: PageType } = {
   '#privacy': 'privacy',
   '#terms': 'terms',
   '#login': 'login',
+  '#client': 'client-portal',
+  '#client-portal': 'client-portal',
 };
 
-const hashMap: { [key in PageType]: string } = {
+const hashMap: { [key in ExtendedPageType]: string } = {
   'home': '',
   'about': '#about',
   'services': '#services',
@@ -43,19 +51,20 @@ const hashMap: { [key in PageType]: string } = {
   'privacy': '#privacy',
   'terms': '#terms',
   'login': '#login',
+  'client-portal': '#client',
 };
 
 const App: React.FC = () => {
   // Get initial page from URL hash
-  const getPageFromHash = (): PageType => {
+  const getPageFromHash = (): ExtendedPageType => {
     const hash = window.location.hash;
     return pageMap[hash] || 'home';
   };
 
-  const [currentPage, setCurrentPage] = useState<PageType>(getPageFromHash);
+  const [currentPage, setCurrentPage] = useState<ExtendedPageType>(getPageFromHash);
 
   // Handle navigation
-  const handleNavigate = (page: PageType) => {
+  const handleNavigate = (page: ExtendedPageType) => {
     setCurrentPage(page);
     window.location.hash = hashMap[page];
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -103,6 +112,11 @@ const App: React.FC = () => {
     }
   };
 
+  // Client Portal has its own layout
+  if (currentPage === 'client-portal') {
+    return <ClientApp onBackToSite={() => handleNavigate('home')} />;
+  }
+
   // Login page has its own layout
   if (currentPage === 'login') {
     return <LoginPage onNavigate={handleNavigate} />;
@@ -110,7 +124,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} />
+      <Header currentPage={currentPage as PageType} onNavigate={handleNavigate} />
 
       <main className="flex-1">
         {renderPage()}

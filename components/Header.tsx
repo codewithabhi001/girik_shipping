@@ -54,8 +54,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? 'bg-white shadow-lg'
-        : 'bg-transparent'
+      ? 'bg-white shadow-lg'
+      : 'bg-transparent'
       }`}>
       {/* Top Bar - Hidden on scroll */}
       <div className={`bg-navy-600 text-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 py-0' : 'h-auto py-2'
@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
               </button>
               <div className="w-px h-4 bg-white/20"></div>
               <button
-                onClick={() => handleNavClick('login')}
+                onClick={() => { window.location.hash = '#client'; }}
                 className="flex items-center gap-2 text-white hover:text-teal-400 transition-colors font-medium"
               >
                 <User size={14} />
@@ -102,8 +102,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
 
       {/* Main Navigation */}
       <nav className={`transition-all duration-300 ${isScrolled
-          ? 'py-3 bg-white'
-          : 'py-4 bg-white/95 backdrop-blur-sm'
+        ? 'py-3 bg-white'
+        : 'py-4 bg-white/95 backdrop-blur-sm'
         }`}>
         <div className="container-custom">
           <div className="flex items-center justify-between">
@@ -137,8 +137,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
                   <button
                     onClick={() => !link.children && handleNavClick(link.page)}
                     className={`flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors relative ${currentPage === link.page
-                        ? 'text-teal-500'
-                        : 'text-slate-700 hover:text-teal-500'
+                      ? 'text-teal-500'
+                      : 'text-slate-700 hover:text-teal-500'
                       }`}
                   >
                     {link.label}
@@ -202,8 +202,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
 
       {/* Mobile Menu */}
       <div className={`lg:hidden fixed inset-x-0 top-[72px] bg-white shadow-xl transition-all duration-300 transform ${isMobileMenuOpen
-          ? 'opacity-100 translate-y-0'
-          : 'opacity-0 -translate-y-4 pointer-events-none'
+        ? 'opacity-100 translate-y-0'
+        : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}>
         <div className="max-h-[calc(100vh-72px)] overflow-y-auto">
           <div className="container-custom py-6">
@@ -214,8 +214,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
                   <button
                     onClick={() => link.children ? handleDropdownToggle(link.label) : handleNavClick(link.page)}
                     className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-colors ${currentPage === link.page
-                        ? 'text-teal-500 bg-teal-50'
-                        : 'text-slate-700 hover:bg-slate-50'
+                      ? 'text-teal-500 bg-teal-50'
+                      : 'text-slate-700 hover:bg-slate-50'
                       }`}
                   >
                     {link.label}

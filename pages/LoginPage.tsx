@@ -223,6 +223,24 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
                                 Contact us to get started
                             </button>
                         </div>
+
+                        {/* Demo Client Portal Access */}
+                        <div className="mt-6 p-4 bg-teal-50 border border-teal-200">
+                            <div className="flex items-center gap-3 mb-2">
+                                <CheckCircle className="text-teal-500" size={20} />
+                                <span className="font-semibold text-teal-700">Try Demo Client Portal</span>
+                            </div>
+                            <p className="text-sm text-teal-600 mb-3">
+                                Explore the full client dashboard with demo credentials.
+                            </p>
+                            <button
+                                onClick={() => { window.location.hash = '#client'; }}
+                                className="w-full bg-teal-500 text-white py-2.5 px-4 font-semibold hover:bg-teal-600 transition-colors flex items-center justify-center gap-2"
+                            >
+                                Access Demo Portal
+                                <ArrowRight size={16} />
+                            </button>
+                        </div>
                     </div>
 
                     {/* Security Note */}
