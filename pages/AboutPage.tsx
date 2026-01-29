@@ -103,7 +103,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                         backgroundImage: 'url("https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop")'
                     }}
                 >
-                    <div className="absolute inset-0 bg-navy-600/90"></div>
+                    <div className="absolute inset-0 bg-navy-600/70"></div>
                 </div>
 
                 <div className="container-custom relative z-10">

@@ -94,7 +94,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                         backgroundImage: 'url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop")'
                     }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-navy-600/95 via-navy-600/90 to-navy-600/80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-navy-600/85 via-navy-600/75 to-navy-600/65"></div>
                     {/* Decorative Elements */}
                     <div className="absolute inset-0 opacity-30">
                         <div className="absolute top-20 right-20 w-72 h-72 bg-teal-500/20 blur-3xl"></div>
