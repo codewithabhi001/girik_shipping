@@ -1554,3 +1554,695 @@ select.form-input {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================
+   MARITIME PROFESSIONAL DESIGN SYSTEM
+   Inspired by Dromon, ABS Eagle, DNV, OMC
+   ============================================ */
+
+/* Maritime Color Extensions */
+:root {
+  /* Deep Ocean Blues - More Maritime Feel */
+  --maritime-deep: #032541;
+  --maritime-navy: #0a3d62;
+  --maritime-steel: #1e5f8a;
+  --maritime-light: #2980b9;
+
+  /* Maritime Accent - Professional Teal/Cyan */
+  --maritime-accent: #00a19b;
+  --maritime-accent-light: #00c4bc;
+  --maritime-accent-dark: #007f7a;
+
+  /* Golden Accent - Premium Feel */
+  --maritime-gold: #d4a439;
+  --maritime-gold-light: #f0c85a;
+
+  /* Professional Grays */
+  --maritime-gray-100: #f4f7f9;
+  --maritime-gray-200: #e8eef3;
+  --maritime-gray-300: #d0dce5;
+  --maritime-gray-400: #9fb3c4;
+  --maritime-gray-500: #6d8698;
+  --maritime-gray-600: #4a5f6e;
+
+  /* Status Colors - Maritime Standards */
+  --maritime-valid: #27ae60;
+  --maritime-warning: #f39c12;
+  --maritime-danger: #e74c3c;
+  --maritime-info: #3498db;
+}
+
+/* ============================================
+   MARITIME CARD STYLES - LEFT BORDER ACCENT
+   Like Dromon Bureau of Shipping
+   ============================================ */
+.maritime-card {
+  background: var(--white);
+  border: 1px solid var(--maritime-gray-200);
+  border-left: 4px solid var(--maritime-accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.maritime-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 161, 155, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.maritime-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-left-color: var(--maritime-accent-dark);
+}
+
+/* Maritime Card Variants */
+.maritime-card-navy {
+  background: var(--white);
+  border: 1px solid var(--maritime-gray-200);
+  border-left: 4px solid var(--maritime-navy);
+}
+
+.maritime-card-gold {
+  background: var(--white);
+  border: 1px solid var(--maritime-gray-200);
+  border-left: 4px solid var(--maritime-gold);
+}
+
+.maritime-card-info {
+  background: var(--white);
+  border: 1px solid var(--maritime-gray-200);
+  border-left: 4px solid var(--maritime-info);
+}
+
+.maritime-card-success {
+  background: var(--white);
+  border: 1px solid var(--maritime-gray-200);
+  border-left: 4px solid var(--maritime-valid);
+}
+
+/* ============================================
+   MARITIME SERVICE CARDS
+   Professional Classification Society Style
+   ============================================ */
+.maritime-service-card {
+  background: var(--white);
+  border: none;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.maritime-service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--maritime-accent) 0%, var(--maritime-navy) 100%);
+  transform: scaleY(0);
+  transition: transform 0.4s ease;
+  transform-origin: bottom;
+}
+
+.maritime-service-card:hover::before {
+  transform: scaleY(1);
+}
+
+.maritime-service-card:hover {
+  box-shadow: 0 8px 32px rgba(10, 61, 98, 0.15);
+  transform: translateY(-6px);
+}
+
+/* Service Card Header Bar */
+.maritime-service-header {
+  background: linear-gradient(135deg, var(--maritime-deep) 0%, var(--maritime-navy) 100%);
+  padding: 1.5rem;
+  margin: -1px -1px 0 -1px;
+}
+
+/* ============================================
+   MARITIME SECTIONS WITH WAVE PATTERNS
+   ============================================ */
+.maritime-section {
+  position: relative;
+  padding: 5rem 0;
+}
+
+.maritime-section-dark {
+  background: linear-gradient(135deg, var(--maritime-deep) 0%, var(--maritime-navy) 100%);
+  color: var(--white);
+}
+
+.maritime-section-alt {
+  background: var(--maritime-gray-100);
+}
+
+/* Subtle Wave Pattern Overlay */
+.maritime-wave-pattern {
+  position: relative;
+}
+
+.maritime-wave-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* ============================================
+   MARITIME HEADER / SECTION TITLES
+   ============================================ */
+.maritime-section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, rgba(0, 161, 155, 0.1) 0%, rgba(0, 161, 155, 0.05) 100%);
+  border: 1px solid rgba(0, 161, 155, 0.2);
+  color: var(--maritime-accent-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+
+.maritime-section-badge-dark {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 196, 188, 0.3);
+  color: var(--maritime-accent-light);
+}
+
+.maritime-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--maritime-deep);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.maritime-title-light {
+  color: var(--white);
+}
+
+.maritime-subtitle {
+  color: var(--maritime-gray-500);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  max-width: 42rem;
+}
+
+.maritime-subtitle-light {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ============================================
+   MARITIME FEATURE BOXES
+   Like DNV and ABS Eagle
+   ============================================ */
+.maritime-feature-box {
+  background: var(--white);
+  padding: 2rem;
+  position: relative;
+  border: 1px solid var(--maritime-gray-200);
+  transition: all 0.3s ease;
+}
+
+.maritime-feature-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--maritime-accent), var(--maritime-navy));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.maritime-feature-box:hover::after {
+  transform: scaleX(1);
+}
+
+.maritime-feature-box:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* Feature Icon Container */
+.maritime-icon-container {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--maritime-accent) 0%, var(--maritime-accent-dark) 100%);
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.maritime-icon-container-outline {
+  background: transparent;
+  border: 2px solid var(--maritime-accent);
+  color: var(--maritime-accent);
+}
+
+.maritime-icon-container-navy {
+  background: linear-gradient(135deg, var(--maritime-navy) 0%, var(--maritime-deep) 100%);
+}
+
+/* ============================================
+   MARITIME STATS DISPLAY
+   Professional Counter Boxes
+   ============================================ */
+.maritime-stat-box {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.maritime-stat-box:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+.maritime-stat-number {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--maritime-accent-light);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.maritime-stat-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.maritime-stat-description {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.25rem;
+}
+
+/* Light Version */
+.maritime-stat-box-light {
+  background: var(--white);
+  border: 1px solid var(--maritime-gray-200);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.maritime-stat-box-light .maritime-stat-number {
+  background: linear-gradient(135deg, var(--maritime-accent) 0%, var(--maritime-navy) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.maritime-stat-box-light .maritime-stat-label {
+  color: var(--maritime-deep);
+}
+
+.maritime-stat-box-light .maritime-stat-description {
+  color: var(--maritime-gray-500);
+}
+
+/* ============================================
+   MARITIME TIMELINE
+   For Milestones and Process Steps
+   ============================================ */
+.maritime-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.maritime-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--maritime-accent) 0%, var(--maritime-navy) 100%);
+}
+
+.maritime-timeline-item {
+  position: relative;
+  padding: 1.5rem 0 1.5rem 2rem;
+}
+
+.maritime-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 1.75rem;
+  width: 16px;
+  height: 16px;
+  background: var(--maritime-accent);
+  border: 4px solid var(--white);
+  box-shadow: 0 0 0 4px rgba(0, 161, 155, 0.2);
+  transform: translateX(-6.5px);
+}
+
+.maritime-timeline-year {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--maritime-accent);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.maritime-timeline-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--maritime-deep);
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.maritime-timeline-content {
+  color: var(--maritime-gray-500);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* ============================================
+   MARITIME BUTTONS
+   Professional CTA Styling
+   ============================================ */
+.maritime-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--maritime-accent) 0%, var(--maritime-accent-dark) 100%);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.maritime-btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.maritime-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 161, 155, 0.35);
+}
+
+.maritime-btn-primary:hover::before {
+  left: 100%;
+}
+
+.maritime-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: var(--maritime-accent);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid var(--maritime-accent);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.maritime-btn-secondary:hover {
+  background: var(--maritime-accent);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.maritime-btn-navy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: var(--maritime-deep);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.maritime-btn-navy:hover {
+  background: var(--maritime-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(3, 37, 65, 0.35);
+}
+
+/* ============================================
+   MARITIME VERIFICATION BADGE
+   Certificate Status Indicators
+   ============================================ */
+.maritime-verify-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(39, 174, 96, 0.05) 100%);
+  border: 2px solid var(--maritime-valid);
+  color: var(--maritime-valid);
+}
+
+.maritime-verify-badge-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--maritime-valid);
+  color: var(--white);
+}
+
+.maritime-verify-badge-text {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Invalid/Expired States */
+.maritime-verify-badge-invalid {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(231, 76, 60, 0.05) 100%);
+  border-color: var(--maritime-danger);
+  color: var(--maritime-danger);
+}
+
+.maritime-verify-badge-invalid .maritime-verify-badge-icon {
+  background: var(--maritime-danger);
+}
+
+.maritime-verify-badge-pending {
+  background: linear-gradient(135deg, rgba(243, 156, 18, 0.1) 0%, rgba(243, 156, 18, 0.05) 100%);
+  border-color: var(--maritime-warning);
+  color: var(--maritime-warning);
+}
+
+.maritime-verify-badge-pending .maritime-verify-badge-icon {
+  background: var(--maritime-warning);
+}
+
+/* ============================================
+   MARITIME HERO STYLES
+   Impactful Landing Headers
+   ============================================ */
+.maritime-hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--maritime-deep) 0%, var(--maritime-navy) 50%, var(--maritime-steel) 100%);
+  overflow: hidden;
+}
+
+.maritime-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(3, 37, 65, 0.9) 0%, rgba(3, 37, 65, 0.7) 50%, rgba(3, 37, 65, 0.4) 100%);
+}
+
+.maritime-hero-content {
+  position: relative;
+  z-index: 10;
+}
+
+.maritime-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 196, 188, 0.3);
+  backdrop-filter: blur(4px);
+  color: var(--maritime-accent-light);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.maritime-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.maritime-hero-title-accent {
+  color: var(--maritime-accent-light);
+}
+
+.maritime-hero-description {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  max-width: 36rem;
+  margin-bottom: 2rem;
+}
+
+/* ============================================
+   MARITIME GRID PATTERNS
+   For Service Listings
+   ============================================ */
+.maritime-grid-services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.maritime-grid-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.maritime-grid-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ============================================
+   MARITIME FOOTER STYLING
+   ============================================ */
+.maritime-footer {
+  background: var(--maritime-deep);
+  color: var(--white);
+  padding: 4rem 0 2rem;
+}
+
+.maritime-footer-accent-bar {
+  height: 4px;
+  background: linear-gradient(90deg, var(--maritime-accent) 0%, var(--maritime-navy) 50%, var(--maritime-accent) 100%);
+}
+
+.maritime-footer-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.maritime-footer-link {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9375rem;
+  padding: 0.375rem 0;
+  transition: all 0.2s ease;
+}
+
+.maritime-footer-link:hover {
+  color: var(--maritime-accent-light);
+  transform: translateX(4px);
+}
+
+/* ============================================
+   MARITIME RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 768px) {
+  .maritime-hero-title {
+    font-size: 2rem;
+  }
+
+  .maritime-hero-description {
+    font-size: 1rem;
+  }
+
+  .maritime-stat-number {
+    font-size: 2.5rem;
+  }
+
+  .maritime-feature-box {
+    padding: 1.5rem;
+  }
+
+  .maritime-icon-container {
+    width: 50px;
+    height: 50px;
+  }
+
+  .maritime-timeline {
+    padding-left: 1.5rem;
+  }
+
+  .maritime-timeline-item {
+    padding-left: 1.5rem;
+  }
+}

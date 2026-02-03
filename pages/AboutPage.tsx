@@ -1,6 +1,6 @@
 // ============================================
-// GIRIK SHIPPING - ABOUT PAGE
-// Complete Company Profile & Story
+// GIRIK CLASS - ABOUT PAGE
+// Complete Maritime Classification Society
 // ============================================
 
 import React from 'react';
@@ -8,27 +8,25 @@ import {
     ShieldCheck,
     Target,
     Eye,
-    Heart,
+    Award,
     Users,
     Globe,
-    Award,
     CheckCircle,
     ArrowRight,
-    Building,
     Anchor,
     Ship,
-    Clock,
-    Zap,
-    Star,
+    Flag,
+    Building2,
     MapPin,
-    Linkedin,
-    TrendingUp,
-    Lightbulb,
-    Handshake,
-    Scale,
-    Lock
+    Phone,
+    Mail,
+    Calendar,
+    Star,
+    Briefcase,
+    GraduationCap,
+    Heart
 } from 'lucide-react';
-import { COMPANY_INFO, TEAM_MEMBERS, STATISTICS } from '../constants';
+import { COMPANY_INFO } from '../constants';
 import { PageType } from '../types';
 
 interface AboutPageProps {
@@ -36,206 +34,274 @@ interface AboutPageProps {
 }
 
 const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
-    // Company Milestones
-    const milestones = [
-        { year: '2024', title: 'Foundation', description: 'GIRIK Shipping founded in Mumbai with a vision to digitize maritime certification globally.' },
-        { year: '2024', title: 'First Authorization', description: 'Received statutory certification authorization from first flag administration.' },
-        { year: '2025', title: 'Platform Launch', description: 'Full digital platform launched with QR verification and mobile surveyor app.' },
-        { year: '2025', title: 'Global Expansion', description: 'Opened regional hubs in Singapore and Dubai to serve Asia-Pacific and Middle East.' },
-        { year: '2026', title: '40+ Flag States', description: 'Achieved authorization from over 40 flag administrations worldwide.' },
-        { year: '2026', title: '2,500+ Vessels', description: 'Surpassed 2,500 active vessels under certification with zero PSC documentation detentions.' },
+    // Company Timeline
+    const timeline = [
+        {
+            year: '2024',
+            title: 'Foundation',
+            description: 'GIRIK Class established in Mumbai with a vision to provide world-class maritime classification services with modern digital infrastructure.'
+        },
+        {
+            year: '2024',
+            title: 'First Flag Authorization',
+            description: 'Received Recognized Organization status from our first flag administration, enabling statutory survey and certification services.'
+        },
+        {
+            year: '2025',
+            title: 'Digital Platform Launch',
+            description: 'Launched industry-leading digital certificate platform with QR verification, enabling instant authenticity checks worldwide.'
+        },
+        {
+            year: '2025',
+            title: 'Global Expansion',
+            description: 'Established survey stations in Singapore, Dubai, and Athens. Expanded surveyor network to 120+ professionals globally.'
+        },
+        {
+            year: '2026',
+            title: '40+ Flag Authorizations',
+            description: 'Achieved RO status with over 40 flag administrations including Panama, Liberia, Marshall Islands, and Malta.'
+        }
     ];
 
     // Core Values
-    const coreValues = [
+    const values = [
         {
             icon: ShieldCheck,
-            title: 'Trust & Integrity',
-            description: 'We maintain the highest standards of professional integrity. Every certificate we issue is backed by thorough verification and uncompromising quality.'
+            title: 'Safety First',
+            description: 'Maritime safety is our primary focus. Every survey, every certificate, every decision is guided by the imperative to protect life at sea.'
         },
         {
-            icon: Lightbulb,
-            title: 'Innovation',
-            description: 'We continuously push the boundaries of maritime technology, transforming traditional processes into efficient digital workflows.'
+            icon: Award,
+            title: 'Technical Excellence',
+            description: 'Our surveyors maintain the highest technical standards, with continuous training and certification in the latest maritime technologies.'
         },
         {
             icon: Globe,
-            title: 'Global Mindset',
-            description: 'Maritime is a global industry, and we operate with a worldwide perspective, understanding diverse regulatory environments and local requirements.'
+            title: 'Global Reach',
+            description: 'With surveyors in over 50 countries, we provide prompt survey services wherever your vessel operates worldwide.'
         },
         {
-            icon: Handshake,
-            title: 'Partnership',
-            description: 'We work collaboratively with ship owners, flag states, and surveyors, building long-term relationships based on mutual success.'
+            icon: Heart,
+            title: 'Client Partnership',
+            description: 'We view every client as a partner. Our success is measured by your operational excellence and regulatory compliance.'
+        }
+    ];
+
+    // Leadership Team
+    const leadership = [
+        {
+            name: 'Capt. Rajesh Kumar',
+            position: 'Managing Director & CEO',
+            image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop',
+            bio: '30+ years in maritime industry. Former Chief Surveyor at a major classification society. Master Mariner with FG certification.'
         },
         {
-            icon: Lock,
-            title: 'Security First',
-            description: 'Protecting sensitive maritime data is paramount. We employ enterprise-grade security measures and maintain strict confidentiality.'
+            name: 'Dr. Anita Sharma',
+            position: 'Chief Technical Officer',
+            image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400&auto=format&fit=crop',
+            bio: 'PhD in Naval Architecture. 25 years experience in ship design and classification. Former IMO delegate.'
         },
         {
-            icon: Scale,
-            title: 'Compliance Excellence',
-            description: 'We stay ahead of regulatory developments, ensuring our services and platform always meet the latest international standards.'
+            name: 'Capt. Michael Chen',
+            position: 'Director - Statutory Services',
+            image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop',
+            bio: 'Master Mariner with 20+ years at sea. Expert in ISM/ISPS auditing. Led PSC inspections in multiple port states.'
+        },
+        {
+            name: 'Sarah Johnson',
+            position: 'Director - Global Operations',
+            image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop',
+            bio: '18 years in maritime operations. Previously managed surveyor network for Europe & Middle East at a leading class society.'
         }
     ];
 
     // Accreditations
     const accreditations = [
-        { name: 'IMO Guidelines', description: 'Aligned with International Maritime Organization standards' },
-        { name: 'IACS Standards', description: 'Meeting IACS quality and safety benchmarks' },
-        { name: 'ISO 27001 Ready', description: 'Information security management aligned' },
-        { name: 'ISO 9001 Ready', description: 'Quality management system certified' },
-        { name: 'GDPR Compliant', description: 'Full EU data protection compliance' },
-        { name: 'SOC 2 Aligned', description: 'Service organization controls met' }
+        'ISO 9001:2015 Quality Management',
+        'ISO 14001:2015 Environmental Management',
+        'ISO 45001:2018 Occupational Health & Safety',
+        'IACS Quality System Certification Scheme',
+        'IMO Recognized Organization',
+        'EU MRV Accredited Verifier'
+    ];
+
+    // Stats
+    const stats = [
+        { value: '40+', label: 'Flag Authorizations' },
+        { value: '2,500+', label: 'Vessels Classed' },
+        { value: '120+', label: 'Surveyors' },
+        { value: '50+', label: 'Countries' }
     ];
 
     return (
         <div>
-            {/* ============================================
-                HERO SECTION
-            ============================================ */}
-            <section className="relative py-32 pt-48 overflow-hidden">
-                {/* Background */}
+            {/* HERO SECTION */}
+            <section className="relative py-32 pt-40" style={{ background: '#0B2545' }}>
                 <div
-                    className="absolute inset-0 bg-cover bg-center"
-                    style={{
-                        backgroundImage: 'url("https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop")'
-                    }}
-                >
-                    <div className="absolute inset-0 bg-navy-600/70"></div>
-                </div>
-
+                    className="absolute inset-0 bg-cover bg-center opacity-20"
+                    style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1559825481-12a05cc00344?q=80&w=2070&auto=format&fit=crop")' }}
+                />
                 <div className="container-custom relative z-10">
-                    <div className="max-w-4xl">
-                        <span className="bg-teal-500 text-white px-4 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-6">
-                            About GIRIK
+                    <div className="max-w-3xl">
+                        <span className="inline-block px-4 py-2 text-sm font-semibold uppercase tracking-wider mb-6" style={{ background: '#00A896', color: 'white' }}>
+                            About GIRIK Class
                         </span>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-white leading-tight mb-6">
-                            Pioneering Digital Trust in Maritime Certification
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+                            Committed to Maritime Excellence
                         </h1>
-                        <p className="text-xl text-slate-300 leading-relaxed max-w-3xl">
-                            {COMPANY_INFO.description}
+                        <p className="text-xl text-white/70 leading-relaxed">
+                            An independent ship classification society providing world-class maritime
+                            classification, statutory certification, and technical services to the
+                            global shipping industry.
                         </p>
                     </div>
                 </div>
             </section>
 
-            {/* ============================================
-                MISSION & VISION
-            ============================================ */}
-            <section className="section-padding-lg bg-white">
+            {/* STATS BAR */}
+            <section style={{ background: '#00A896' }} className="py-10">
                 <div className="container-custom">
-                    <div className="grid lg:grid-cols-2 gap-12">
-                        {/* Mission */}
-                        <div className="bg-slate-50 p-10 border-l-4 border-teal-500">
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="w-14 h-14 bg-teal-100 flex items-center justify-center">
-                                    <Target className="text-teal-600" size={28} />
-                                </div>
-                                <h2 className="text-2xl font-heading font-bold text-navy-600">Our Mission</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+                        {stats.map((stat, index) => (
+                            <div key={index}>
+                                <div className="text-4xl font-heading font-bold mb-1">{stat.value}</div>
+                                <div className="text-white/80 text-sm uppercase tracking-wider">{stat.label}</div>
                             </div>
-                            <p className="text-slate-600 leading-relaxed text-lg">
-                                {COMPANY_INFO.mission}
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* INTRODUCTION */}
+            <section className="py-20 bg-white">
+                <div className="container-custom">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
+                                Who We Are
+                            </span>
+                            <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-6" style={{ color: '#0B2545' }}>
+                                Your Trusted Classification Partner
+                            </h2>
+                            <p className="mb-6 leading-relaxed" style={{ color: '#6b7c93', fontSize: '1.0625rem' }}>
+                                GIRIK Class was founded with a singular mission: to provide ship owners and operators
+                                with a classification society that combines technical excellence with modern digital
+                                capabilities and responsive customer service.
+                            </p>
+                            <p className="mb-6 leading-relaxed" style={{ color: '#6b7c93', fontSize: '1.0625rem' }}>
+                                As a Recognized Organization (RO) authorized by over 40 flag administrations, we
+                                conduct surveys and issue certificates that are accepted by port state control
+                                authorities worldwide. Our commitment to quality ensures our classed fleet
+                                maintains an excellent PSC performance record.
+                            </p>
+                            <p className="mb-8 leading-relaxed" style={{ color: '#6b7c93', fontSize: '1.0625rem' }}>
+                                Headquartered in Mumbai, India, with offices in Singapore, Dubai, and Athens,
+                                GIRIK Class provides global coverage through a network of 120+ qualified surveyors
+                                operating in over 50 countries.
+                            </p>
+
+                            <div className="flex flex-wrap gap-4">
+                                <button
+                                    onClick={() => onNavigate('services')}
+                                    className="px-8 py-4 font-semibold flex items-center gap-3"
+                                    style={{ background: '#0B2545', color: 'white' }}
+                                >
+                                    Our Services <ArrowRight size={18} />
+                                </button>
+                                <button
+                                    onClick={() => onNavigate('contact')}
+                                    className="px-8 py-4 font-semibold flex items-center gap-3"
+                                    style={{ border: '2px solid #0B2545', color: '#0B2545' }}
+                                >
+                                    Contact Us
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="relative">
+                            <img
+                                src="https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?q=80&w=1200&auto=format&fit=crop"
+                                alt="GIRIK Class maritime operations"
+                                className="w-full shadow-2xl"
+                            />
+                            <div className="absolute -bottom-6 -left-6 p-6 shadow-xl hidden lg:block" style={{ background: 'white', border: '4px solid #00A896' }}>
+                                <div className="flex items-center gap-4">
+                                    <Anchor size={40} style={{ color: '#00A896' }} />
+                                    <div>
+                                        <div className="font-heading font-bold text-lg" style={{ color: '#0B2545' }}>Established</div>
+                                        <div className="text-2xl font-heading font-bold" style={{ color: '#00A896' }}>2024</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* MISSION & VISION */}
+            <section className="py-20" style={{ background: '#f8fafc' }}>
+                <div className="container-custom">
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {/* Mission */}
+                        <div className="p-10" style={{ background: 'white', borderTop: '4px solid #0B2545' }}>
+                            <div className="w-16 h-16 mb-6 flex items-center justify-center" style={{ background: '#0B2545' }}>
+                                <Target size={32} className="text-white" />
+                            </div>
+                            <h3 className="text-2xl font-heading font-bold mb-4" style={{ color: '#0B2545' }}>
+                                Our Mission
+                            </h3>
+                            <p className="leading-relaxed" style={{ color: '#6b7c93', fontSize: '1.0625rem' }}>
+                                To provide independent ship classification and statutory certification services
+                                that protect life, property, and the marine environment through rigorous
+                                technical standards, professional surveys, and digital innovation that enables
+                                transparency and efficiency in maritime operations.
                             </p>
                         </div>
 
                         {/* Vision */}
-                        <div className="bg-navy-600 p-10 text-white">
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="w-14 h-14 bg-white/20 flex items-center justify-center">
-                                    <Eye className="text-teal-400" size={28} />
-                                </div>
-                                <h2 className="text-2xl font-heading font-bold">Our Vision</h2>
+                        <div className="p-10" style={{ background: 'white', borderTop: '4px solid #00A896' }}>
+                            <div className="w-16 h-16 mb-6 flex items-center justify-center" style={{ background: '#00A896' }}>
+                                <Eye size={32} className="text-white" />
                             </div>
-                            <p className="text-slate-300 leading-relaxed text-lg">
-                                {COMPANY_INFO.vision}
+                            <h3 className="text-2xl font-heading font-bold mb-4" style={{ color: '#0B2545' }}>
+                                Our Vision
+                            </h3>
+                            <p className="leading-relaxed" style={{ color: '#6b7c93', fontSize: '1.0625rem' }}>
+                                To become a globally recognized classification society known for technical
+                                excellence, digital innovation, and commitment to maritime safety. We envision
+                                a future where every GIRIK Class certificate is a mark of quality, instantly
+                                verifiable and universally trusted.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ============================================
-                OUR STORY
-            ============================================ */}
-            <section className="section-padding-lg bg-slate-50">
+            {/* CORE VALUES */}
+            <section className="py-20 bg-white">
                 <div className="container-custom">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        {/* Story Content */}
-                        <div>
-                            <span className="badge-teal mb-4 inline-block">Our Story</span>
-                            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-600 mt-4 mb-6">
-                                From Industry Frustration to Digital Innovation
-                            </h2>
-                            <div className="space-y-6 text-slate-600 leading-relaxed">
-                                <p>
-                                    GIRIK Shipping was born from a simple observation: despite the maritime industry's global
-                                    sophistication in logistics and operations, its certification and compliance processes
-                                    remained stuck in the paper era. Our founders, seasoned marine professionals with decades
-                                    of experience at sea and ashore, witnessed firsthand the inefficiencies, delays, and risks
-                                    associated with traditional maritime documentation.
-                                </p>
-                                <p>
-                                    In 2024, we set out to build something different — a digital-native certification bureau
-                                    that would combine deep maritime expertise with cutting-edge technology. Our goal was not
-                                    just to digitize existing processes, but to reimagine how maritime compliance should work
-                                    in the 21st century.
-                                </p>
-                                <p>
-                                    Today, GIRIK serves as the digital backbone for maritime certification across 40+ flag
-                                    states, connecting ship owners, surveyors, flag administrations, and port authorities
-                                    through a single, trusted platform. Every certificate we issue is instantly verifiable,
-                                    every survey is digitally documented, and every stakeholder has real-time visibility
-                                    into compliance status.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Image */}
-                        <div className="relative">
-                            <img
-                                src="https://images.unsplash.com/photo-1577993157145-53d66ad47ad3?q=80&w=1200&auto=format&fit=crop"
-                                alt="Maritime Operations"
-                                className="w-full shadow-xl"
-                            />
-                            {/* Floating Stats */}
-                            <div className="absolute -bottom-8 -left-8 bg-teal-500 text-white p-6 shadow-xl">
-                                <div className="text-5xl font-heading font-bold">40+</div>
-                                <div className="text-teal-100">Flag State Authorizations</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ============================================
-                CORE VALUES
-            ============================================ */}
-            <section className="section-padding-lg bg-white">
-                <div className="container-custom">
-                    {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <span className="badge-navy mb-4 inline-block">Our Foundation</span>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-600 mt-4 mb-6">
-                            Core Values That Guide Us
+                    <div className="text-center mb-14">
+                        <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
+                            What Drives Us
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4" style={{ color: '#0B2545' }}>
+                            Our Core Values
                         </h2>
-                        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-                            These principles underpin everything we do, from product development to client service.
+                        <p className="max-w-2xl mx-auto" style={{ color: '#6b7c93' }}>
+                            These principles guide every decision we make and every service we provide.
                         </p>
                     </div>
 
-                    {/* Values Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {coreValues.map((value, index) => (
-                            <div key={index} className="border border-slate-200 p-8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                                <div className="w-14 h-14 bg-teal-50 flex items-center justify-center mb-6">
-                                    <value.icon className="text-teal-500" size={28} />
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {values.map((value, index) => (
+                            <div key={index} className="text-center p-8" style={{ background: '#f8fafc' }}>
+                                <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ background: '#0B2545' }}>
+                                    <value.icon size={28} className="text-white" />
                                 </div>
-                                <h3 className="text-xl font-heading font-bold text-navy-600 mb-4">
+                                <h3 className="font-heading font-bold text-lg mb-3" style={{ color: '#0B2545' }}>
                                     {value.title}
                                 </h3>
-                                <p className="text-slate-600 leading-relaxed">
+                                <p className="text-sm leading-relaxed" style={{ color: '#6b7c93' }}>
                                     {value.description}
                                 </p>
                             </div>
@@ -244,108 +310,33 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                 </div>
             </section>
 
-            {/* ============================================
-                COMPANY MILESTONES / TIMELINE
-            ============================================ */}
-            <section className="section-padding-lg bg-navy-600">
+            {/* TIMELINE */}
+            <section className="py-20" style={{ background: '#0B2545' }}>
                 <div className="container-custom">
-                    {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <span className="bg-white/10 text-teal-400 border border-teal-400/30 px-4 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-4">
+                    <div className="text-center mb-14">
+                        <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
                             Our Journey
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mt-4 mb-6">
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mt-3 mb-4">
                             Key Milestones
                         </h2>
-                        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                            From startup to global maritime technology leader in just two years.
-                        </p>
                     </div>
 
-                    {/* Timeline */}
-                    <div className="relative">
-                        {/* Vertical Line */}
-                        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-white/20 -translate-x-1/2 hidden lg:block"></div>
-
-                        <div className="space-y-8">
-                            {milestones.map((milestone, index) => (
-                                <div key={index} className={`lg:flex items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                                    {/* Content */}
-                                    <div className={`lg:w-1/2 ${index % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:pl-12'}`}>
-                                        <div className="bg-white/5 border border-white/10 p-6 inline-block">
-                                            <div className="text-teal-400 font-heading font-bold text-xl mb-2">{milestone.year}</div>
-                                            <h3 className="text-white font-heading font-bold text-lg mb-2">{milestone.title}</h3>
-                                            <p className="text-slate-400">{milestone.description}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Center Dot */}
-                                    <div className="hidden lg:flex items-center justify-center relative z-10">
-                                        <div className="w-5 h-5 bg-teal-500 border-4 border-navy-600"></div>
-                                    </div>
-
-                                    {/* Spacer */}
-                                    <div className="lg:w-1/2"></div>
+                    <div className="max-w-4xl mx-auto">
+                        {timeline.map((item, index) => (
+                            <div key={index} className="flex gap-8 mb-8 last:mb-0">
+                                <div className="flex-shrink-0 w-24 text-right">
+                                    <span className="text-2xl font-heading font-bold" style={{ color: '#00A896' }}>{item.year}</span>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ============================================
-                LEADERSHIP TEAM
-            ============================================ */}
-            <section className="section-padding-lg bg-slate-50">
-                <div className="container-custom">
-                    {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <span className="badge-teal mb-4 inline-block">Leadership</span>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-600 mt-4 mb-6">
-                            Meet Our Team
-                        </h2>
-                        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-                            Led by maritime industry veterans and technology experts with a shared vision for digital excellence.
-                        </p>
-                    </div>
-
-                    {/* Team Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {TEAM_MEMBERS.map((member, index) => (
-                            <div key={index} className="bg-white border border-slate-200 overflow-hidden hover:shadow-xl transition-all duration-300 group">
-                                {/* Image */}
-                                <div className="h-64 overflow-hidden relative">
-                                    <img
-                                        src={member.image}
-                                        alt={member.name}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-navy-600/80 to-transparent"></div>
-                                </div>
-
-                                {/* Content */}
-                                <div className="p-6 relative">
-                                    {/* Social Link */}
-                                    {member.linkedin && (
-                                        <a
-                                            href={member.linkedin}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="absolute -top-6 right-6 w-12 h-12 bg-teal-500 flex items-center justify-center text-white hover:bg-teal-600 transition-colors shadow-lg"
-                                        >
-                                            <Linkedin size={20} />
-                                        </a>
+                                <div className="flex-shrink-0 flex flex-col items-center">
+                                    <div className="w-4 h-4 rounded-full" style={{ background: '#00A896' }} />
+                                    {index < timeline.length - 1 && (
+                                        <div className="w-0.5 flex-grow" style={{ background: 'rgba(255,255,255,0.2)' }} />
                                     )}
-
-                                    <h3 className="text-lg font-heading font-bold text-navy-600 mb-1">
-                                        {member.name}
-                                    </h3>
-                                    <div className="text-sm text-teal-500 font-semibold mb-3">
-                                        {member.position}
-                                    </div>
-                                    <p className="text-slate-600 text-sm leading-relaxed">
-                                        {member.bio}
-                                    </p>
+                                </div>
+                                <div className="pb-8">
+                                    <h3 className="text-xl font-heading font-bold text-white mb-2">{item.title}</h3>
+                                    <p className="text-white/70 leading-relaxed">{item.description}</p>
                                 </div>
                             </div>
                         ))}
@@ -353,141 +344,148 @@ const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                 </div>
             </section>
 
-            {/* ============================================
-                STATISTICS
-            ============================================ */}
-            <section className="section-padding-lg bg-white border-t border-slate-100">
+            {/* LEADERSHIP */}
+            <section className="py-20 bg-white">
                 <div className="container-custom">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        {STATISTICS.slice(0, 8).map((stat, index) => (
-                            <div key={index} className="text-center p-6">
-                                <div className="text-4xl md:text-5xl font-heading font-extrabold text-teal-500 mb-2">
-                                    {stat.value}<span className="text-navy-600">{stat.suffix}</span>
-                                </div>
-                                <div className="text-lg font-semibold text-navy-600 mb-1">{stat.label}</div>
-                                {stat.description && (
-                                    <div className="text-sm text-slate-500">{stat.description}</div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ============================================
-                ACCREDITATIONS
-            ============================================ */}
-            <section className="section-padding-lg bg-slate-50">
-                <div className="container-custom">
-                    {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <span className="badge-navy mb-4 inline-block">Accreditations</span>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-600 mt-4 mb-6">
-                            Standards & Compliance
-                        </h2>
-                        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-                            We maintain alignment with the highest international standards for quality, security, and maritime compliance.
-                        </p>
-                    </div>
-
-                    {/* Accreditations Grid */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {accreditations.map((item, index) => (
-                            <div key={index} className="bg-white p-6 border border-slate-200 flex items-start gap-4">
-                                <div className="w-12 h-12 bg-teal-50 flex items-center justify-center flex-shrink-0">
-                                    <Award className="text-teal-500" size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="font-heading font-bold text-navy-600 mb-1">{item.name}</h3>
-                                    <p className="text-sm text-slate-600">{item.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ============================================
-                GLOBAL PRESENCE
-            ============================================ */}
-            <section className="section-padding-lg bg-navy-600">
-                <div className="container-custom">
-                    {/* Section Header */}
-                    <div className="text-center mb-16">
-                        <span className="bg-white/10 text-teal-400 border border-teal-400/30 px-4 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-4">
-                            Global Reach
+                    <div className="text-center mb-14">
+                        <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
+                            Our Team
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mt-4 mb-6">
-                            Our Global Presence
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4" style={{ color: '#0B2545' }}>
+                            Leadership Team
                         </h2>
-                        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                            With regional hubs and a network of authorized surveyors, we deliver seamless service across major maritime centers worldwide.
+                        <p className="max-w-2xl mx-auto" style={{ color: '#6b7c93' }}>
+                            Experienced maritime professionals leading GIRIK Class to excellence.
                         </p>
                     </div>
 
-                    {/* Locations */}
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            { city: 'Mumbai', country: 'India', role: 'Global Headquarters', flag: '🇮🇳' },
-                            { city: 'Singapore', country: 'Singapore', role: 'Asia-Pacific Hub', flag: '🇸🇬' },
-                            { city: 'Dubai', country: 'UAE', role: 'Middle East Hub', flag: '🇦🇪' },
-                            { city: 'Rotterdam', country: 'Netherlands', role: 'European Operations', flag: '🇳🇱' }
-                        ].map((location, index) => (
-                            <div key={index} className="bg-white/5 border border-white/10 p-6 text-center hover:bg-white/10 transition-colors">
-                                <div className="text-4xl mb-4">{location.flag}</div>
-                                <h3 className="text-xl font-heading font-bold text-white mb-1">{location.city}</h3>
-                                <div className="text-teal-400 font-medium mb-2">{location.country}</div>
-                                <div className="text-sm text-slate-400">{location.role}</div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {leadership.map((person, index) => (
+                            <div key={index} className="group">
+                                <div className="mb-5 overflow-hidden">
+                                    <img
+                                        src={person.image}
+                                        alt={person.name}
+                                        className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                </div>
+                                <h3 className="font-heading font-bold text-lg mb-1" style={{ color: '#0B2545' }}>
+                                    {person.name}
+                                </h3>
+                                <p className="text-sm font-medium mb-3" style={{ color: '#00A896' }}>
+                                    {person.position}
+                                </p>
+                                <p className="text-sm leading-relaxed" style={{ color: '#6b7c93' }}>
+                                    {person.bio}
+                                </p>
                             </div>
                         ))}
                     </div>
+                </div>
+            </section>
 
-                    {/* Global Stats */}
-                    <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {/* ACCREDITATIONS */}
+            <section className="py-20" style={{ background: '#f8fafc' }}>
+                <div className="container-custom">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <div className="text-4xl font-heading font-bold text-white">120+</div>
-                            <div className="text-slate-400">Ports Covered</div>
+                            <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
+                                Quality Assurance
+                            </span>
+                            <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-6" style={{ color: '#0B2545' }}>
+                                Accreditations & Certifications
+                            </h2>
+                            <p className="mb-8 leading-relaxed" style={{ color: '#6b7c93', fontSize: '1.0625rem' }}>
+                                GIRIK Class maintains internationally recognized quality management systems
+                                and is accredited by leading certification bodies to ensure our services
+                                meet the highest standards.
+                            </p>
+
+                            <div className="grid grid-cols-1 gap-3">
+                                {accreditations.map((item, index) => (
+                                    <div key={index} className="flex items-center gap-4 p-4" style={{ background: 'white' }}>
+                                        <Award size={20} style={{ color: '#00A896' }} />
+                                        <span className="font-medium" style={{ color: '#0B2545' }}>{item}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
+
                         <div>
-                            <div className="text-4xl font-heading font-bold text-white">150+</div>
-                            <div className="text-slate-400">Expert Surveyors</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-heading font-bold text-white">40+</div>
-                            <div className="text-slate-400">Flag Authorizations</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-heading font-bold text-white">24/7</div>
-                            <div className="text-slate-400">Global Support</div>
+                            <img
+                                src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop"
+                                alt="Quality management certification"
+                                className="w-full shadow-2xl"
+                            />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ============================================
-                CTA SECTION
-            ============================================ */}
-            <section className="section-padding-lg bg-teal-500">
+            {/* GLOBAL PRESENCE */}
+            <section className="py-20 bg-white">
+                <div className="container-custom">
+                    <div className="text-center mb-14">
+                        <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
+                            Worldwide Coverage
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4" style={{ color: '#0B2545' }}>
+                            Global Presence
+                        </h2>
+                        <p className="max-w-2xl mx-auto" style={{ color: '#6b7c93' }}>
+                            With offices in key maritime hubs and surveyors in 50+ countries,
+                            we provide prompt service wherever your vessel operates.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {[
+                            { city: 'Mumbai', country: 'India', type: 'Headquarters', phone: '+91 22 4000 5000' },
+                            { city: 'Singapore', country: 'Singapore', type: 'Regional Office', phone: '+65 6789 0000' },
+                            { city: 'Dubai', country: 'UAE', type: 'Regional Office', phone: '+971 4 567 0000' },
+                            { city: 'Athens', country: 'Greece', type: 'Regional Office', phone: '+30 210 456 0000' }
+                        ].map((office, index) => (
+                            <div key={index} className="p-6" style={{ background: '#f8fafc', borderBottom: '3px solid #00A896' }}>
+                                <MapPin size={24} style={{ color: '#00A896' }} className="mb-4" />
+                                <h3 className="font-heading font-bold text-xl mb-1" style={{ color: '#0B2545' }}>
+                                    {office.city}
+                                </h3>
+                                <p className="text-sm mb-1" style={{ color: '#6b7c93' }}>{office.country}</p>
+                                <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: '#00A896' }}>
+                                    {office.type}
+                                </p>
+                                <p className="text-sm" style={{ color: '#6b7c93' }}>
+                                    <Phone size={12} className="inline mr-1" /> {office.phone}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA */}
+            <section className="py-20" style={{ background: '#00A896' }}>
                 <div className="container-custom text-center">
                     <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
-                        Ready to Partner with GIRIK?
+                        Partner With GIRIK Class
                     </h2>
-                    <p className="text-teal-100 text-lg max-w-2xl mx-auto mb-10">
-                        Whether you're a ship owner, flag administration, or surveyor, we're here to support your maritime certification needs.
+                    <p className="text-white/80 text-lg max-w-2xl mx-auto mb-10">
+                        Whether you're looking for new classification, transfer of class, or statutory
+                        certification services, our team is ready to assist.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         <button
                             onClick={() => onNavigate('contact')}
-                            className="bg-white text-teal-600 px-8 py-4 font-semibold text-sm uppercase tracking-wider hover:bg-navy-600 hover:text-white transition-all flex items-center gap-2"
+                            className="px-10 py-4 font-semibold flex items-center gap-3"
+                            style={{ background: 'white', color: '#0B2545' }}
                         >
-                            Contact Us
-                            <ArrowRight size={18} />
+                            Contact Us <ArrowRight size={18} />
                         </button>
                         <button
                             onClick={() => onNavigate('services')}
-                            className="bg-transparent text-white border-2 border-white px-8 py-4 font-semibold text-sm uppercase tracking-wider hover:bg-white hover:text-teal-600 transition-all"
+                            className="px-10 py-4 font-semibold flex items-center gap-3 border-2 border-white text-white hover:bg-white hover:text-[#0B2545] transition-all"
                         >
-                            View Our Services
+                            Our Services
                         </button>
                     </div>
                 </div>

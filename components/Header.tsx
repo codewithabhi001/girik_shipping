@@ -1,25 +1,20 @@
 // ============================================
-// GIRIK SHIPPING - HEADER COMPONENT
-// Professional Navigation with Mega Menu
+// GIRIK CLASS - HEADER COMPONENT
+// Fixed Navbar with Proper Visibility
 // ============================================
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Menu,
   X,
   ChevronDown,
+  Search,
   Phone,
-  Mail,
-  Clock,
-  ShieldCheck,
   QrCode,
-  User,
-  Globe,
-  ExternalLink,
-  ArrowRight
+  Shield
 } from 'lucide-react';
-import { NAV_LINKS, COMPANY_INFO } from '../constants';
 import { PageType } from '../types';
+import { COMPANY_INFO } from '../constants';
 
 interface HeaderProps {
   currentPage: PageType;
@@ -29,251 +24,204 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on navigation
-  const handleNavClick = (page: PageType) => {
-    onNavigate(page);
-    setIsMobileMenuOpen(false);
-    setActiveDropdown(null);
-  };
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsServicesOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-  // Toggle dropdown on hover (desktop) or click (mobile)
-  const handleDropdownToggle = (label: string) => {
-    setActiveDropdown(activeDropdown === label ? null : label);
+  // Navigation items
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    {
+      id: 'services',
+      label: 'Services',
+      hasDropdown: true,
+      dropdownItems: [
+        { id: 'services', label: 'All Services' },
+        { id: 'services', label: 'Ship Classification', anchor: '#classification' },
+        { id: 'services', label: 'Statutory Certification', anchor: '#statutory' },
+        { id: 'services', label: 'Flag State Services', anchor: '#flag' },
+        { id: 'services', label: 'Environmental Services', anchor: '#environmental' }
+      ]
+    },
+    { id: 'howItWorks', label: 'How It Works' },
+    { id: 'contact', label: 'Contact' }
+  ];
+
+  // Always show solid background on non-home pages
+  const isHomePage = currentPage === 'home';
+  // On home page: transparent at top, solid on scroll
+  // On other pages: always solid
+  const showSolidBg = !isHomePage || isScrolled;
+
+  const handleNavClick = (page: PageType | string) => {
+    onNavigate(page as PageType);
+    setIsMobileMenuOpen(false);
+    setIsServicesOpen(false);
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-      ? 'bg-white shadow-lg'
-      : 'bg-transparent'
-      }`}>
-      {/* Top Bar - Hidden on scroll */}
-      <div className={`bg-navy-600 text-white transition-all duration-300 overflow-hidden ${isScrolled ? 'h-0 py-0' : 'h-auto py-2'
-        }`}>
-        <div className="container-custom">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            {/* Left - Contact Info */}
-            <div className="hidden md:flex items-center gap-6 text-sm">
-              <a href={`tel:${COMPANY_INFO.phone}`} className="flex items-center gap-2 text-slate-300 hover:text-teal-400 transition-colors">
-                <Phone size={14} />
-                <span>{COMPANY_INFO.phone}</span>
-              </a>
-              <a href={`mailto:${COMPANY_INFO.email}`} className="flex items-center gap-2 text-slate-300 hover:text-teal-400 transition-colors">
-                <Mail size={14} />
-                <span>{COMPANY_INFO.email}</span>
-              </a>
-              <div className="flex items-center gap-2 text-slate-400">
-                <Clock size={14} />
-                <span>24/7 Global Support</span>
-              </div>
-            </div>
-
-            {/* Right - CTA Links */}
-            <div className="flex items-center gap-4 text-sm">
-              <button
-                onClick={() => handleNavClick('verify')}
-                className="flex items-center gap-2 text-teal-400 hover:text-teal-300 transition-colors font-medium"
-              >
-                <QrCode size={14} />
-                <span>Verify Certificate</span>
-              </button>
-              <div className="w-px h-4 bg-white/20"></div>
-              <button
-                onClick={() => { window.location.hash = '#client'; }}
-                className="flex items-center gap-2 text-white hover:text-teal-400 transition-colors font-medium"
-              >
-                <User size={14} />
-                <span>Client Portal</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navigation */}
-      <nav className={`transition-all duration-300 ${isScrolled
-        ? 'py-3 bg-white'
-        : 'py-4 bg-white/95 backdrop-blur-sm'
-        }`}>
-        <div className="container-custom">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <button
-              onClick={() => handleNavClick('home')}
-              className="flex items-center gap-3 group"
+    <header
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        background: showSolidBg ? 'rgba(11, 37, 69, 0.98)' : 'rgba(11, 37, 69, 0.3)',
+        backdropFilter: 'blur(10px)',
+        boxShadow: showSolidBg ? '0 4px 20px rgba(0,0,0,0.15)' : 'none'
+      }}
+    >
+      <div className="container-custom">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <button
+            onClick={() => handleNavClick('home')}
+            className="flex items-center gap-3"
+          >
+            <div
+              className="w-10 h-10 flex items-center justify-center"
+              style={{ background: '#00A896' }}
             >
-              <div className="w-12 h-12 bg-navy-600 flex items-center justify-center transition-colors group-hover:bg-teal-500">
-                <ShieldCheck className="text-white" size={28} />
+              <Shield size={22} className="text-white" />
+            </div>
+            <div>
+              <div className="text-xl font-heading font-bold tracking-tight text-white">
+                GIRIK
               </div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-heading font-extrabold tracking-tight text-navy-600">
-                  GIRIK
-                </span>
-                <span className="text-[10px] tracking-[0.12em] font-semibold uppercase text-teal-500 -mt-0.5">
-                  Digital Maritime Bureau
-                </span>
+              <div className="text-[10px] uppercase tracking-[0.2em] -mt-1 text-white/60">
+                Classification Society
               </div>
-            </button>
+            </div>
+          </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
-              {NAV_LINKS.map((link) => (
-                <div
-                  key={link.label}
-                  className="relative"
-                  onMouseEnter={() => link.children && setActiveDropdown(link.label)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <button
-                    onClick={() => !link.children && handleNavClick(link.page)}
-                    className={`flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors relative ${currentPage === link.page
-                      ? 'text-teal-500'
-                      : 'text-slate-700 hover:text-teal-500'
-                      }`}
-                  >
-                    {link.label}
-                    {link.children && <ChevronDown size={14} className={`transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />}
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => (
+              <div key={item.id} className="relative" ref={item.hasDropdown ? dropdownRef : undefined}>
+                {item.hasDropdown ? (
+                  <>
+                    <button
+                      onClick={() => setIsServicesOpen(!isServicesOpen)}
+                      className={`px-4 py-2 text-sm font-medium uppercase tracking-wider flex items-center gap-1 transition-colors text-white/90 hover:text-white ${currentPage === item.id ? 'text-white' : ''
+                        }`}
+                    >
+                      {item.label}
+                      <ChevronDown size={14} className={`transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
+                    </button>
 
-                    {/* Active indicator */}
-                    {currentPage === link.page && (
-                      <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-teal-500"></span>
-                    )}
-                  </button>
-
-                  {/* Dropdown */}
-                  {link.children && activeDropdown === link.label && (
-                    <div className="absolute top-full left-0 pt-2 w-64 animate-fadeIn">
-                      <div className="bg-white shadow-xl border border-slate-100 py-2">
-                        {link.children.map((child) => (
+                    {/* Dropdown Menu */}
+                    {isServicesOpen && (
+                      <div className="absolute top-full left-0 mt-2 w-56 bg-white shadow-xl py-2 z-50">
+                        {item.dropdownItems?.map((dropItem, index) => (
                           <button
-                            key={child.label}
-                            onClick={() => handleNavClick(child.page)}
-                            className="w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 hover:text-teal-500 transition-colors flex items-center justify-between group"
+                            key={index}
+                            onClick={() => handleNavClick(dropItem.id as PageType)}
+                            className="w-full px-4 py-3 text-left text-sm hover:bg-slate-50 transition-colors"
+                            style={{ color: '#0B2545' }}
                           >
-                            {child.label}
-                            <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                            {dropItem.label}
                           </button>
                         ))}
                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                    )}
+                  </>
+                ) : (
+                  <button
+                    onClick={() => handleNavClick(item.id as PageType)}
+                    className={`px-4 py-2 text-sm font-medium uppercase tracking-wider transition-colors text-white/90 hover:text-white ${currentPage === item.id ? 'text-white' : ''
+                      }`}
+                    style={currentPage === item.id ? { color: '#00A896' } : {}}
+                  >
+                    {item.label}
+                  </button>
+                )}
+              </div>
+            ))}
+          </nav>
 
-            {/* Desktop CTA Buttons */}
-            <div className="hidden lg:flex items-center gap-3">
-              <button
-                onClick={() => handleNavClick('verify')}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-navy-600 border-2 border-navy-600 hover:bg-navy-600 hover:text-white transition-all"
-              >
-                <QrCode size={16} />
-                Verify
-              </button>
-              <button
-                onClick={() => handleNavClick('contact')}
-                className="px-5 py-2 text-sm font-medium text-white bg-teal-500 hover:bg-teal-600 transition-all"
-              >
-                Get Started
-              </button>
-            </div>
-
-            {/* Mobile Menu Toggle */}
+          {/* Right Side */}
+          <div className="hidden lg:flex items-center gap-3">
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-navy-600 hover:text-teal-500 transition-colors"
-              aria-label="Toggle menu"
+              onClick={() => handleNavClick('verify')}
+              className="px-4 py-2 text-sm font-semibold flex items-center gap-2 transition-all"
+              style={{ background: '#00A896', color: 'white' }}
             >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              <QrCode size={16} /> Verify
+            </button>
+            <button
+              className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+            >
+              <Search size={20} />
             </button>
           </div>
-        </div>
-      </nav>
 
-      {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-x-0 top-[72px] bg-white shadow-xl transition-all duration-300 transform ${isMobileMenuOpen
-        ? 'opacity-100 translate-y-0'
-        : 'opacity-0 -translate-y-4 pointer-events-none'
-        }`}>
-        <div className="max-h-[calc(100vh-72px)] overflow-y-auto">
-          <div className="container-custom py-6">
-            {/* Mobile Nav Links */}
-            <nav className="space-y-1 mb-6">
-              {NAV_LINKS.map((link) => (
-                <div key={link.label}>
-                  <button
-                    onClick={() => link.children ? handleDropdownToggle(link.label) : handleNavClick(link.page)}
-                    className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-colors ${currentPage === link.page
-                      ? 'text-teal-500 bg-teal-50'
-                      : 'text-slate-700 hover:bg-slate-50'
-                      }`}
-                  >
-                    {link.label}
-                    {link.children && (
-                      <ChevronDown size={18} className={`transition-transform ${activeDropdown === link.label ? 'rotate-180' : ''}`} />
-                    )}
-                  </button>
-
-                  {/* Mobile Dropdown */}
-                  {link.children && activeDropdown === link.label && (
-                    <div className="bg-slate-50 py-2">
-                      {link.children.map((child) => (
-                        <button
-                          key={child.label}
-                          onClick={() => handleNavClick(child.page)}
-                          className="w-full text-left px-8 py-2 text-sm text-slate-600 hover:text-teal-500"
-                        >
-                          {child.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
-
-            {/* Mobile CTA Buttons */}
-            <div className="space-y-3 pt-4 border-t border-slate-200">
-              <button
-                onClick={() => handleNavClick('verify')}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 text-base font-medium text-navy-600 border-2 border-navy-600 hover:bg-navy-600 hover:text-white transition-all"
-              >
-                <QrCode size={18} />
-                Verify Certificate
-              </button>
-              <button
-                onClick={() => handleNavClick('login')}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 text-base font-medium text-white bg-teal-500 hover:bg-teal-600 transition-all"
-              >
-                <User size={18} />
-                Client Portal Login
-              </button>
-            </div>
-
-            {/* Mobile Contact Info */}
-            <div className="mt-6 pt-4 border-t border-slate-200 space-y-3">
-              <a href={`tel:${COMPANY_INFO.phone}`} className="flex items-center gap-3 text-slate-600">
-                <Phone size={16} className="text-teal-500" />
-                <span>{COMPANY_INFO.phone}</span>
-              </a>
-              <a href={`mailto:${COMPANY_INFO.email}`} className="flex items-center gap-3 text-slate-600">
-                <Mail size={16} className="text-teal-500" />
-                <span>{COMPANY_INFO.email}</span>
-              </a>
-            </div>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden p-2 text-white"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden border-t border-white/10" style={{ background: 'rgba(11, 37, 69, 0.98)' }}>
+          <nav className="container-custom py-4">
+            {navItems.map((item) => (
+              <div key={item.id}>
+                <button
+                  onClick={() => handleNavClick(item.id as PageType)}
+                  className={`w-full px-4 py-3 text-left font-medium transition-colors text-white/80 hover:text-white ${currentPage === item.id ? 'text-[#00A896]' : ''
+                    }`}
+                >
+                  {item.label}
+                </button>
+                {item.hasDropdown && (
+                  <div className="pl-8 pb-2">
+                    {item.dropdownItems?.slice(1).map((dropItem, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleNavClick(dropItem.id as PageType)}
+                        className="w-full px-4 py-2 text-left text-sm text-white/60 hover:text-white"
+                      >
+                        {dropItem.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <div className="pt-4 border-t border-white/10 mt-4">
+              <button
+                onClick={() => handleNavClick('verify')}
+                className="w-full px-4 py-3 text-center font-semibold text-white"
+                style={{ background: '#00A896' }}
+              >
+                <QrCode size={16} className="inline mr-2" /> Verify Certificate
+              </button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

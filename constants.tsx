@@ -28,16 +28,16 @@ import {
 // COMPANY INFORMATION
 // ============================================
 export const COMPANY_INFO: CompanyInfo = {
-  name: 'GIRIK Shipping',
-  fullName: 'GIRIK Digital Maritime Bureau',
-  tagline: 'Digital Maritime Certification. Trusted. Transparent. Compliant.',
-  mission: 'To revolutionize global maritime certification by replacing fragmented, paper-based compliance processes with a unified digital infrastructure that ensures authenticity, accelerates operations, and enables real-time verification across the entire maritime ecosystem.',
-  vision: 'To become the world\'s most trusted digital backbone for maritime safety documentation, where every certificate issued is instantly verifiable, every vessel is fully traceable, and compliance is seamlessly integrated into daily shipping operations.',
+  name: 'GIRIK Class',
+  fullName: 'GIRIK Classification Society',
+  tagline: 'Protecting life, property and the marine environment.',
+  mission: 'To provide independent ship classification and statutory certification services that protect life, property, and the marine environment through rigorous technical standards and professional surveys.',
+  vision: 'To become a trusted global classification society recognized for technical excellence, digital innovation, and commitment to maritime safety.',
   founded: 2024,
   headquarters: 'Mumbai, India',
-  description: 'GIRIK Shipping is a pioneering digital maritime certification bureau that combines deep maritime expertise with cutting-edge technology. We serve as the bridge between traditional maritime compliance requirements and modern digital infrastructure, enabling ship owners, flag administrations, and port authorities to verify vessel documentation instantly and securely.',
-  website: 'https://girikshipping.com',
-  email: 'info@girikshipping.com',
+  description: 'GIRIK Class is an independent ship classification society providing maritime classification, statutory certification, and technical services to the global shipping industry. As a Recognized Organization authorized by over 40 flag administrations, we survey and certify vessels to ensure compliance with international maritime conventions.',
+  website: 'https://girikclass.com',
+  email: 'info@girikclass.com',
   phone: '+91 22 4000 5000',
   address: {
     street: 'Maritime Business Centre, Ballard Estate',

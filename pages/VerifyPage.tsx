@@ -1,4 +1,7 @@
-// GIRIK Shipping - Verify Certificate Page Component
+// ============================================
+// GIRIK CLASS - VERIFY PAGE
+// Certificate Verification Portal
+// ============================================
 
 import React, { useState } from 'react';
 import {
@@ -6,17 +9,22 @@ import {
     Search,
     CheckCircle,
     XCircle,
-    AlertTriangle,
+    FileCheck,
     Ship,
     Calendar,
-    User,
-    FileText,
-    Download,
-    Globe,
+    Flag,
     Shield,
-    Clock
+    ArrowRight,
+    Clock,
+    AlertCircle,
+    Scan,
+    Download,
+    Printer,
+    ExternalLink,
+    Info,
+    Anchor
 } from 'lucide-react';
-import { SAMPLE_CERTIFICATE } from '../constants';
+import { COMPANY_INFO } from '../constants';
 import { PageType } from '../types';
 
 interface VerifyPageProps {
@@ -24,325 +32,458 @@ interface VerifyPageProps {
 }
 
 const VerifyPage: React.FC<VerifyPageProps> = ({ onNavigate }) => {
-    const [utn, setUtn] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchType, setSearchType] = useState<'utn' | 'imo'>('utn');
     const [isSearching, setIsSearching] = useState(false);
-    const [result, setResult] = useState<typeof SAMPLE_CERTIFICATE | null>(null);
-    const [error, setError] = useState('');
+    const [searchResult, setSearchResult] = useState<'valid' | 'invalid' | 'expired' | null>(null);
 
-    const handleVerify = async () => {
-        if (!utn.trim()) {
-            setError('Please enter a UTN or scan QR code');
-            return;
-        }
+    // Mock certificate data
+    const mockCertificate = {
+        utn: 'GIRIK-2026-SC-001234',
+        type: 'Safety Construction Certificate',
+        vessel: 'M/V Pacific Explorer',
+        imo: '9876543',
+        flag: 'Panama',
+        issueDate: '15 January 2026',
+        expiryDate: '14 January 2031',
+        status: 'Valid',
+        issuingOffice: 'GIRIK Class, Mumbai',
+        surveyor: 'Capt. R. Kumar'
+    };
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!searchQuery.trim()) return;
 
         setIsSearching(true);
-        setError('');
-        setResult(null);
-
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        // Demo: Show sample certificate for specific UTN
-        if (utn.toUpperCase().includes('GIRIK') || utn.includes('2026')) {
-            setResult(SAMPLE_CERTIFICATE);
-        } else {
-            setError('Certificate not found. Please check the UTN and try again.');
-        }
-
-        setIsSearching(false);
-    };
-
-    const handleDemoVerify = () => {
-        setUtn('GIRIK-2026-X88');
         setTimeout(() => {
-            setResult(SAMPLE_CERTIFICATE);
-        }, 500);
+            setIsSearching(false);
+            // Demo: Show valid result if query matches, otherwise show invalid
+            if (searchQuery.toLowerCase().includes('girik') || searchQuery.includes('9876543')) {
+                setSearchResult('valid');
+            } else {
+                setSearchResult('invalid');
+            }
+        }, 1500);
     };
+
+    // Verification features
+    const features = [
+        {
+            icon: Scan,
+            title: 'QR Code Scan',
+            description: 'Scan the QR code on any GIRIK Class certificate using your mobile device for instant verification.'
+        },
+        {
+            icon: Search,
+            title: 'UTN Search',
+            description: 'Enter the Unique Transaction Number (UTN) printed on the certificate to verify authenticity.'
+        },
+        {
+            icon: Ship,
+            title: 'IMO Number Search',
+            description: 'Search by vessel IMO number to view all valid certificates issued for that vessel.'
+        },
+        {
+            icon: Clock,
+            title: 'Real-Time Status',
+            description: 'Get real-time certificate status including validity, conditions, and any endorsements.'
+        }
+    ];
+
+    // Certificate types
+    const certificateTypes = [
+        'Classification Certificate',
+        'Safety Construction Certificate',
+        'Safety Equipment Certificate',
+        'Safety Radio Certificate',
+        'Load Line Certificate',
+        'IOPP Certificate',
+        'IAPP Certificate',
+        'Document of Compliance (ISM)',
+        'Safety Management Certificate',
+        'ISPS Certificate',
+        'MLC Certificate',
+        'Tonnage Certificate'
+    ];
 
     return (
         <div>
-            {/* Hero Section */}
-            <section className="relative py-24 bg-navy-600 overflow-hidden">
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0" style={{
-                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300A896' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-                    }}></div>
-                </div>
-                <div className="container-custom relative z-10 text-center">
-                    <div className="max-w-2xl mx-auto">
-                        <div className="w-20 h-20 bg-teal-500 flex items-center justify-center mx-auto mb-6">
-                            <QrCode className="text-white" size={40} />
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4">
+            {/* HERO SECTION */}
+            <section className="relative py-32 pt-40" style={{ background: '#0B2545' }}>
+                <div
+                    className="absolute inset-0 bg-cover bg-center opacity-20"
+                    style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1562078809-b5e5c4a1ab16?q=80&w=2070&auto=format&fit=crop")' }}
+                />
+                <div className="container-custom relative z-10">
+                    <div className="max-w-3xl">
+                        <span className="inline-block px-4 py-2 text-sm font-semibold uppercase tracking-wider mb-6" style={{ background: '#00A896', color: 'white' }}>
                             Certificate Verification
+                        </span>
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-tight mb-6">
+                            Verify Certificates
                         </h1>
-                        <p className="text-xl text-slate-300">
-                            Verify any GIRIK certificate instantly by scanning the QR code or entering the Unique Tracking Number (UTN).
+                        <p className="text-xl text-white/70 leading-relaxed">
+                            Instantly verify the authenticity of any certificate issued by GIRIK Class.
+                            No login required - verification is free and publicly accessible.
                         </p>
                     </div>
                 </div>
             </section>
 
-            {/* Verification Form */}
-            <section className="section-padding bg-white">
+            {/* VERIFICATION FORM */}
+            <section className="py-16 bg-white">
                 <div className="container-custom">
                     <div className="max-w-3xl mx-auto">
-                        {/* Features */}
-                        <div className="grid grid-cols-3 gap-4 mb-12">
-                            <div className="text-center p-4">
-                                <Globe className="text-teal-500 mx-auto mb-2" size={32} />
-                                <div className="text-sm font-semibold text-navy-600">Public Access</div>
-                                <div className="text-xs text-slate-500">No login required</div>
-                            </div>
-                            <div className="text-center p-4">
-                                <Clock className="text-teal-500 mx-auto mb-2" size={32} />
-                                <div className="text-sm font-semibold text-navy-600">Real-Time</div>
-                                <div className="text-xs text-slate-500">Instant results</div>
-                            </div>
-                            <div className="text-center p-4">
-                                <Shield className="text-teal-500 mx-auto mb-2" size={32} />
-                                <div className="text-sm font-semibold text-navy-600">Authentic</div>
-                                <div className="text-xs text-slate-500">Tamper-proof</div>
-                            </div>
-                        </div>
-
-                        {/* Search Box */}
-                        <div className="card bg-slate-50 p-8 mb-8">
+                        <div className="p-8 shadow-xl" style={{ background: '#f8fafc' }}>
                             <div className="text-center mb-8">
-                                <h2 className="text-2xl font-heading font-bold text-navy-600 mb-2">
-                                    Enter Certificate UTN
+                                <QrCode size={48} style={{ color: '#00A896' }} className="mx-auto mb-4" />
+                                <h2 className="text-2xl font-heading font-bold mb-2" style={{ color: '#0B2545' }}>
+                                    Certificate Verification Portal
                                 </h2>
-                                <p className="text-slate-600">
-                                    Find the UTN on the certificate or scan the QR code
+                                <p style={{ color: '#6b7c93' }}>
+                                    Enter the certificate UTN or vessel IMO number to verify
                                 </p>
                             </div>
 
-                            <div className="flex flex-col md:flex-row gap-4 mb-6">
-                                <div className="flex-1 relative">
-                                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" size={20} />
+                            {/* Search Type Toggle */}
+                            <div className="flex gap-2 mb-6">
+                                <button
+                                    onClick={() => setSearchType('utn')}
+                                    className={`flex-1 py-3 font-medium transition-all ${searchType === 'utn'
+                                            ? 'text-white'
+                                            : 'text-slate-600 bg-white'
+                                        }`}
+                                    style={searchType === 'utn' ? { background: '#0B2545' } : {}}
+                                >
+                                    Search by UTN
+                                </button>
+                                <button
+                                    onClick={() => setSearchType('imo')}
+                                    className={`flex-1 py-3 font-medium transition-all ${searchType === 'imo'
+                                            ? 'text-white'
+                                            : 'text-slate-600 bg-white'
+                                        }`}
+                                    style={searchType === 'imo' ? { background: '#0B2545' } : {}}
+                                >
+                                    Search by IMO Number
+                                </button>
+                            </div>
+
+                            {/* Search Form */}
+                            <form onSubmit={handleSearch} className="mb-6">
+                                <div className="flex gap-3">
                                     <input
                                         type="text"
-                                        value={utn}
-                                        onChange={(e) => setUtn(e.target.value)}
-                                        placeholder="e.g., GIRIK-2026-X88"
-                                        className="form-input pl-12 text-lg h-14"
-                                        onKeyDown={(e) => e.key === 'Enter' && handleVerify()}
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        placeholder={searchType === 'utn' ? 'Enter UTN (e.g., GIRIK-2026-SC-001234)' : 'Enter IMO Number (e.g., 9876543)'}
+                                        className="flex-1 px-4 py-4 border-2 border-slate-200 focus:border-[#00A896] focus:outline-none transition-colors text-lg"
                                     />
+                                    <button
+                                        type="submit"
+                                        disabled={isSearching}
+                                        className="px-8 py-4 font-semibold flex items-center gap-3 transition-all disabled:opacity-70"
+                                        style={{ background: '#00A896', color: 'white' }}
+                                    >
+                                        {isSearching ? (
+                                            <>Searching...</>
+                                        ) : (
+                                            <>
+                                                <Search size={20} /> Verify
+                                            </>
+                                        )}
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={handleVerify}
-                                    disabled={isSearching}
-                                    className="btn-primary h-14 px-10 text-base"
-                                >
-                                    {isSearching ? 'Searching...' : 'Verify'}
-                                </button>
-                            </div>
+                            </form>
 
-                            <div className="text-center">
-                                <button
-                                    onClick={handleDemoVerify}
-                                    className="text-sm text-teal-500 hover:underline"
-                                >
-                                    Try demo: GIRIK-2026-X88
-                                </button>
-                            </div>
-
-                            {error && (
-                                <div className="mt-6 p-4 bg-red-50 border border-red-200 flex items-center gap-3">
-                                    <XCircle className="text-red-500 flex-shrink-0" size={24} />
-                                    <div>
-                                        <div className="font-semibold text-red-700">Verification Failed</div>
-                                        <div className="text-sm text-red-600">{error}</div>
-                                    </div>
+                            {/* Demo Note */}
+                            <div className="p-4 flex items-start gap-3" style={{ background: 'rgba(0, 168, 150, 0.1)' }}>
+                                <Info size={18} style={{ color: '#00A896' }} className="mt-0.5 flex-shrink-0" />
+                                <div className="text-sm" style={{ color: '#0B2545' }}>
+                                    <strong>Demo:</strong> Try searching for "GIRIK-2026-SC-001234" or IMO "9876543" to see a sample valid certificate.
                                 </div>
-                            )}
+                            </div>
                         </div>
-
-                        {/* QR Scanner Placeholder */}
-                        <div className="card bg-white p-8 mb-8 text-center border-2 border-dashed border-slate-200">
-                            <QrCode className="text-slate-300 mx-auto mb-4" size={64} />
-                            <h3 className="font-heading font-bold text-navy-600 mb-2">QR Code Scanner</h3>
-                            <p className="text-slate-600 text-sm mb-4">
-                                Position the certificate QR code within the frame to scan
-                            </p>
-                            <button className="btn-secondary border-navy-600 text-navy-600 hover:bg-navy-600 hover:text-white text-sm">
-                                Enable Camera
-                            </button>
-                        </div>
-
-                        {/* Result Display */}
-                        {result && (
-                            <div className="card bg-white p-0 overflow-hidden animate-fadeInUp">
-                                {/* Status Header */}
-                                <div className="bg-green-500 p-6 flex items-center gap-4">
-                                    <div className="w-16 h-16 bg-white/20 flex items-center justify-center">
-                                        <CheckCircle className="text-white" size={40} />
-                                    </div>
-                                    <div>
-                                        <div className="text-2xl font-heading font-bold text-white">VALID CERTIFICATE</div>
-                                        <div className="text-green-100">This certificate is authentic and currently valid</div>
-                                    </div>
-                                </div>
-
-                                {/* Certificate Details */}
-                                <div className="p-8">
-                                    <div className="grid md:grid-cols-2 gap-8">
-                                        {/* Vessel Info */}
-                                        <div>
-                                            <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                                <Ship size={16} />
-                                                Vessel Information
-                                            </h3>
-                                            <div className="space-y-3">
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">Vessel Name</span>
-                                                    <span className="font-semibold text-navy-600">{result.vessel.name}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">IMO Number</span>
-                                                    <span className="font-semibold text-navy-600">{result.vessel.imo}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">Flag State</span>
-                                                    <span className="font-semibold text-navy-600">{result.vessel.flag}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">Vessel Type</span>
-                                                    <span className="font-semibold text-navy-600">{result.vessel.type}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2">
-                                                    <span className="text-slate-600">Tonnage</span>
-                                                    <span className="font-semibold text-navy-600">{result.vessel.tonnage}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Certificate Info */}
-                                        <div>
-                                            <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                                <FileText size={16} />
-                                                Certificate Details
-                                            </h3>
-                                            <div className="space-y-3">
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">UTN</span>
-                                                    <span className="font-semibold text-navy-600">{result.utn}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">Certificate Type</span>
-                                                    <span className="font-semibold text-navy-600">{result.certificate.type}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">Issued By</span>
-                                                    <span className="font-semibold text-navy-600">{result.certificate.issuedBy}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2 border-b border-slate-100">
-                                                    <span className="text-slate-600">Issue Date</span>
-                                                    <span className="font-semibold text-navy-600">
-                                                        {new Date(result.certificate.issuedAt).toLocaleDateString('en-GB', {
-                                                            day: '2-digit',
-                                                            month: 'short',
-                                                            year: 'numeric'
-                                                        })}
-                                                    </span>
-                                                </div>
-                                                <div className="flex justify-between py-2">
-                                                    <span className="text-slate-600">Expiry Date</span>
-                                                    <span className="font-semibold text-green-600">
-                                                        {new Date(result.certificate.expiresAt).toLocaleDateString('en-GB', {
-                                                            day: '2-digit',
-                                                            month: 'short',
-                                                            year: 'numeric'
-                                                        })}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Surveyor Info */}
-                                    {result.surveyor && (
-                                        <div className="mt-8 pt-8 border-t border-slate-100">
-                                            <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                                                <User size={16} />
-                                                Survey Information
-                                            </h3>
-                                            <div className="grid md:grid-cols-2 gap-4">
-                                                <div className="flex justify-between py-2 bg-slate-50 px-4">
-                                                    <span className="text-slate-600">Surveyor</span>
-                                                    <span className="font-semibold text-navy-600">{result.surveyor.name}</span>
-                                                </div>
-                                                <div className="flex justify-between py-2 bg-slate-50 px-4">
-                                                    <span className="text-slate-600">Surveyor ID</span>
-                                                    <span className="font-semibold text-navy-600">{result.surveyor.id}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Actions */}
-                                    <div className="mt-8 flex flex-wrap gap-4">
-                                        <button className="btn-primary flex items-center gap-2">
-                                            <Download size={18} />
-                                            Download Certificate
-                                        </button>
-                                        <button
-                                            onClick={() => setResult(null)}
-                                            className="btn-secondary border-navy-600 text-navy-600 hover:bg-navy-600 hover:text-white"
-                                        >
-                                            New Search
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
                     </div>
                 </div>
             </section>
 
-            {/* Info Section */}
-            <section className="section-padding bg-slate-50">
+            {/* SEARCH RESULTS */}
+            {searchResult && (
+                <section className="py-16" style={{ background: searchResult === 'valid' ? '#f0fdf4' : '#fef2f2' }}>
+                    <div className="container-custom">
+                        <div className="max-w-3xl mx-auto">
+                            {searchResult === 'valid' ? (
+                                <div className="bg-white shadow-xl overflow-hidden">
+                                    {/* Valid Header */}
+                                    <div className="p-6 flex items-center gap-4" style={{ background: '#00A896' }}>
+                                        <CheckCircle size={40} className="text-white" />
+                                        <div>
+                                            <h3 className="text-xl font-heading font-bold text-white">
+                                                Certificate Verified - VALID
+                                            </h3>
+                                            <p className="text-white/80">
+                                                This certificate is authentic and currently valid
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Certificate Details */}
+                                    <div className="p-8">
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Certificate Type
+                                                </label>
+                                                <p className="font-semibold text-lg" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.type}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    UTN
+                                                </label>
+                                                <p className="font-semibold text-lg" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.utn}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Vessel Name
+                                                </label>
+                                                <p className="font-semibold text-lg" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.vessel}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    IMO Number
+                                                </label>
+                                                <p className="font-semibold text-lg" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.imo}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Flag State
+                                                </label>
+                                                <p className="font-semibold text-lg flex items-center gap-2" style={{ color: '#0B2545' }}>
+                                                    <Flag size={16} style={{ color: '#00A896' }} />
+                                                    {mockCertificate.flag}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Status
+                                                </label>
+                                                <p className="font-semibold text-lg flex items-center gap-2" style={{ color: '#00A896' }}>
+                                                    <CheckCircle size={16} />
+                                                    {mockCertificate.status}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Issue Date
+                                                </label>
+                                                <p className="font-semibold text-lg" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.issueDate}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Expiry Date
+                                                </label>
+                                                <p className="font-semibold text-lg" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.expiryDate}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Issuing Office
+                                                </label>
+                                                <p className="font-semibold" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.issuingOffice}
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <label className="text-xs uppercase tracking-wider" style={{ color: '#6b7c93' }}>
+                                                    Attending Surveyor
+                                                </label>
+                                                <p className="font-semibold" style={{ color: '#0B2545' }}>
+                                                    {mockCertificate.surveyor}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        {/* Actions */}
+                                        <div className="flex flex-wrap gap-3 mt-8 pt-6 border-t border-slate-200">
+                                            <button className="px-6 py-3 font-medium flex items-center gap-2 transition-all" style={{ background: '#0B2545', color: 'white' }}>
+                                                <Download size={16} /> Download PDF
+                                            </button>
+                                            <button className="px-6 py-3 font-medium flex items-center gap-2 transition-all" style={{ border: '2px solid #0B2545', color: '#0B2545' }}>
+                                                <Printer size={16} /> Print
+                                            </button>
+                                            <button
+                                                onClick={() => { setSearchResult(null); setSearchQuery(''); }}
+                                                className="px-6 py-3 font-medium flex items-center gap-2 text-slate-600 hover:text-slate-800"
+                                            >
+                                                New Search
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="bg-white shadow-xl overflow-hidden">
+                                    <div className="p-6 flex items-center gap-4" style={{ background: '#ef4444' }}>
+                                        <XCircle size={40} className="text-white" />
+                                        <div>
+                                            <h3 className="text-xl font-heading font-bold text-white">
+                                                Certificate Not Found
+                                            </h3>
+                                            <p className="text-white/80">
+                                                No valid certificate matches your search query
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="p-8">
+                                        <p className="mb-6" style={{ color: '#6b7c93' }}>
+                                            The certificate number or IMO you entered could not be verified. This could mean:
+                                        </p>
+                                        <ul className="space-y-2 mb-6">
+                                            {[
+                                                'The certificate number was entered incorrectly',
+                                                'The certificate was not issued by GIRIK Class',
+                                                'The certificate has been withdrawn or cancelled'
+                                            ].map((item, index) => (
+                                                <li key={index} className="flex items-center gap-3 text-sm" style={{ color: '#0B2545' }}>
+                                                    <AlertCircle size={14} style={{ color: '#ef4444' }} />
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        <button
+                                            onClick={() => { setSearchResult(null); setSearchQuery(''); }}
+                                            className="px-6 py-3 font-medium flex items-center gap-2"
+                                            style={{ background: '#0B2545', color: 'white' }}
+                                        >
+                                            Try Again
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {/* FEATURES */}
+            <section className="py-20" style={{ background: '#f8fafc' }}>
                 <div className="container-custom">
-                    <div className="max-w-4xl mx-auto">
-                        <h2 className="text-2xl font-heading font-bold text-navy-600 mb-8 text-center">
-                            About Certificate Verification
+                    <div className="text-center mb-14">
+                        <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
+                            How It Works
+                        </span>
+                        <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4" style={{ color: '#0B2545' }}>
+                            Verification Methods
                         </h2>
+                        <p className="max-w-2xl mx-auto" style={{ color: '#6b7c93' }}>
+                            Multiple ways to verify the authenticity of GIRIK Class certificates.
+                        </p>
+                    </div>
 
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div className="card bg-white p-6">
-                                <h3 className="font-heading font-bold text-navy-600 mb-3">What is a UTN?</h3>
-                                <p className="text-slate-600 text-sm">
-                                    The Unique Tracking Number (UTN) is a unique identifier assigned to every GIRIK certificate. It follows the format: GIRIK-YYYY-XXXX, where YYYY is the year and XXXX is a unique code.
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {features.map((feature, index) => (
+                            <div key={index} className="bg-white p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
+                                <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ background: '#0B2545' }}>
+                                    <feature.icon size={28} className="text-white" />
+                                </div>
+                                <h3 className="font-heading font-bold text-lg mb-3" style={{ color: '#0B2545' }}>
+                                    {feature.title}
+                                </h3>
+                                <p className="text-sm" style={{ color: '#6b7c93' }}>
+                                    {feature.description}
                                 </p>
                             </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-                            <div className="card bg-white p-6">
-                                <h3 className="font-heading font-bold text-navy-600 mb-3">Why Verify?</h3>
-                                <p className="text-slate-600 text-sm">
-                                    Certificate verification helps prevent fraud, ensures compliance, and provides peace of mind to port authorities, charterers, and other stakeholders who need to confirm vessel documentation.
-                                </p>
-                            </div>
+            {/* CERTIFICATE TYPES */}
+            <section className="py-20 bg-white">
+                <div className="container-custom">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <span className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#00A896' }}>
+                                Verifiable Certificates
+                            </span>
+                            <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-6" style={{ color: '#0B2545' }}>
+                                What Can You Verify?
+                            </h2>
+                            <p className="mb-8" style={{ color: '#6b7c93', fontSize: '1.0625rem' }}>
+                                All certificates issued by GIRIK Class are available for verification
+                                through this portal. This includes both classification and statutory certificates.
+                            </p>
 
-                            <div className="card bg-white p-6">
-                                <h3 className="font-heading font-bold text-navy-600 mb-3">Real-Time Status</h3>
-                                <p className="text-slate-600 text-sm">
-                                    Our verification system shows the real-time status of certificates. Even if a physical or PDF copy exists, the online verification is the definitive source of truth.
-                                </p>
-                            </div>
-
-                            <div className="card bg-white p-6">
-                                <h3 className="font-heading font-bold text-navy-600 mb-3">Need Help?</h3>
-                                <p className="text-slate-600 text-sm mb-3">
-                                    If you're having trouble verifying a certificate or have concerns about its authenticity, please contact our support team.
-                                </p>
-                                <button
-                                    onClick={() => onNavigate('contact')}
-                                    className="text-teal-500 font-semibold text-sm"
-                                >
-                                    Contact Support →
-                                </button>
+                            <div className="grid grid-cols-2 gap-3">
+                                {certificateTypes.map((cert, index) => (
+                                    <div key={index} className="flex items-center gap-3 p-3" style={{ background: '#f8fafc' }}>
+                                        <FileCheck size={16} style={{ color: '#00A896' }} />
+                                        <span className="text-sm font-medium" style={{ color: '#0B2545' }}>{cert}</span>
+                                    </div>
+                                ))}
                             </div>
                         </div>
+
+                        <div className="text-center p-10" style={{ background: '#f8fafc' }}>
+                            <div className="mb-6">
+                                <Shield size={80} style={{ color: '#0B2545' }} className="mx-auto" />
+                            </div>
+                            <h3 className="text-2xl font-heading font-bold mb-4" style={{ color: '#0B2545' }}>
+                                Authentic & Secure
+                            </h3>
+                            <p className="text-sm mb-6" style={{ color: '#6b7c93' }}>
+                                All GIRIK Class certificates are digitally signed and secured
+                                with blockchain technology to prevent tampering or forgery.
+                            </p>
+                            <div className="flex justify-center gap-3">
+                                <span className="px-4 py-2 text-xs font-semibold uppercase tracking-wider" style={{ background: '#0B2545', color: 'white' }}>
+                                    IMO Compliant
+                                </span>
+                                <span className="px-4 py-2 text-xs font-semibold uppercase tracking-wider" style={{ background: '#00A896', color: 'white' }}>
+                                    GISIS Registered
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA */}
+            <section className="py-20" style={{ background: '#0B2545' }}>
+                <div className="container-custom text-center">
+                    <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-6">
+                        Questions About Verification?
+                    </h2>
+                    <p className="text-white/70 text-lg max-w-2xl mx-auto mb-10">
+                        If you have any questions about certificate verification or encounter
+                        issues with the portal, our team is here to help.
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-4">
+                        <button
+                            onClick={() => onNavigate('contact')}
+                            className="px-10 py-4 font-semibold flex items-center gap-3"
+                            style={{ background: '#00A896', color: 'white' }}
+                        >
+                            Contact Support <ArrowRight size={18} />
+                        </button>
+                        <button
+                            onClick={() => onNavigate('howItWorks')}
+                            className="px-10 py-4 font-semibold flex items-center gap-3 border-2 border-white text-white hover:bg-white hover:text-[#0B2545] transition-all"
+                        >
+                            Learn More
+                        </button>
                     </div>
                 </div>
             </section>

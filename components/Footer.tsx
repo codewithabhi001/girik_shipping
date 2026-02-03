@@ -1,235 +1,254 @@
 // ============================================
-// GIRIK SHIPPING - FOOTER COMPONENT
-// Professional Footer with Complete Navigation
+// GIRIK CLASS - FOOTER COMPONENT
+// Complete Maritime Classification Footer
 // ============================================
 
 import React from 'react';
 import {
-    ShieldCheck,
     Phone,
     Mail,
     MapPin,
+    Shield,
+    ChevronRight,
+    Globe,
     Linkedin,
     Twitter,
     Facebook,
     Youtube,
-    ArrowUp,
-    Globe,
-    Award,
-    Lock,
-    ArrowRight,
-    ChevronRight
+    ExternalLink,
+    Anchor
 } from 'lucide-react';
-import { FOOTER_LINKS, COMPANY_INFO, COMPLIANCE_BADGES } from '../constants';
 import { PageType } from '../types';
+import { COMPANY_INFO } from '../constants';
 
 interface FooterProps {
     onNavigate: (page: PageType) => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
     const currentYear = new Date().getFullYear();
 
+    const footerLinks = {
+        services: [
+            { label: 'Ship Classification', page: 'services' },
+            { label: 'Statutory Certification', page: 'services' },
+            { label: 'Flag State Services', page: 'services' },
+            { label: 'Environmental Services', page: 'services' },
+            { label: 'EU MRV Verification', page: 'services' },
+            { label: 'ISM/ISPS Audits', page: 'services' }
+        ],
+        resources: [
+            { label: 'Rules & Guidelines', page: 'services' },
+            { label: 'Technical Circulars', page: 'services' },
+            { label: 'Survey Schedule', page: 'contact' },
+            { label: 'Fee Schedule', page: 'contact' },
+            { label: 'Forms & Checklists', page: 'services' },
+            { label: 'Class Notations', page: 'services' }
+        ],
+        company: [
+            { label: 'About GIRIK Class', page: 'about' },
+            { label: 'Our Team', page: 'about' },
+            { label: 'Global Offices', page: 'contact' },
+            { label: 'Careers', page: 'contact' },
+            { label: 'News & Updates', page: 'home' },
+            { label: 'Contact Us', page: 'contact' }
+        ],
+        quickLinks: [
+            { label: 'Verify Certificate', page: 'verify' },
+            { label: 'Client Portal', page: 'login' },
+            { label: 'Request Survey', page: 'contact' },
+            { label: 'Transfer of Class', page: 'contact' }
+        ]
+    };
+
+    const offices = [
+        { city: 'Mumbai', country: 'HQ' },
+        { city: 'Singapore', country: 'Asia' },
+        { city: 'Dubai', country: 'ME' },
+        { city: 'Athens', country: 'EU' }
+    ];
+
     return (
-        <footer className="bg-navy-600">
-            {/* Newsletter Section */}
-            <div className="border-b border-white/10">
-                <div className="container-custom py-12">
-                    <div className="grid lg:grid-cols-2 gap-8 items-center">
-                        <div>
-                            <h3 className="text-2xl font-heading font-bold text-white mb-2">
-                                Stay Updated
-                            </h3>
-                            <p className="text-slate-400">
-                                Subscribe to receive regulatory updates, industry news, and product announcements.
-                            </p>
-                        </div>
-                        <div className="flex gap-3">
-                            <input
-                                type="email"
-                                placeholder="Enter your email address"
-                                className="flex-1 px-4 py-3 bg-white/10 border-2 border-white/20 text-white placeholder-slate-400 focus:border-teal-500 focus:outline-none transition-colors"
-                            />
-                            <button className="px-6 py-3 bg-teal-500 text-white font-semibold hover:bg-teal-600 transition-colors flex items-center gap-2">
-                                Subscribe
-                                <ArrowRight size={18} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Main Footer Content */}
+        <footer style={{ background: '#0B2545' }}>
+            {/* Main Footer */}
             <div className="container-custom py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
-                    {/* Brand Column */}
+                <div className="grid lg:grid-cols-5 gap-12">
+                    {/* Company Info */}
                     <div className="lg:col-span-2">
-                        {/* Logo */}
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-teal-500 flex items-center justify-center">
-                                <ShieldCheck className="text-white" size={28} />
+                            <div className="w-12 h-12 flex items-center justify-center" style={{ background: '#00A896' }}>
+                                <Shield size={26} className="text-white" />
                             </div>
-                            <div className="flex flex-col">
-                                <span className="text-2xl font-heading font-extrabold tracking-tight text-white">
-                                    GIRIK
-                                </span>
-                                <span className="text-[10px] tracking-[0.12em] font-semibold uppercase text-teal-400 -mt-0.5">
-                                    Digital Maritime Bureau
-                                </span>
+                            <div>
+                                <div className="text-2xl font-heading font-bold text-white">GIRIK Class</div>
+                                <div className="text-xs text-white/60 uppercase tracking-wider">Classification Society</div>
                             </div>
                         </div>
-
-                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                            {COMPANY_INFO.description.slice(0, 200)}...
+                        <p className="text-white/70 mb-6 leading-relaxed max-w-sm">
+                            An independent ship classification society providing maritime
+                            classification, statutory certification, and technical services
+                            to the global shipping industry.
                         </p>
 
                         {/* Contact Info */}
                         <div className="space-y-3">
-                            <a href={`tel:${COMPANY_INFO.phone}`} className="flex items-center gap-3 text-slate-300 hover:text-teal-400 transition-colors">
-                                <Phone size={16} className="text-teal-500" />
-                                <span className="text-sm">{COMPANY_INFO.phone}</span>
+                            <a href={`tel:${COMPANY_INFO.phone}`} className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+                                <Phone size={16} style={{ color: '#00A896' }} />
+                                <span>{COMPANY_INFO.phone}</span>
                             </a>
-                            <a href={`mailto:${COMPANY_INFO.email}`} className="flex items-center gap-3 text-slate-300 hover:text-teal-400 transition-colors">
-                                <Mail size={16} className="text-teal-500" />
-                                <span className="text-sm">{COMPANY_INFO.email}</span>
+                            <a href={`mailto:${COMPANY_INFO.email}`} className="flex items-center gap-3 text-white/70 hover:text-white transition-colors">
+                                <Mail size={16} style={{ color: '#00A896' }} />
+                                <span>{COMPANY_INFO.email}</span>
                             </a>
-                            <div className="flex items-start gap-3 text-slate-400">
-                                <MapPin size={16} className="text-teal-500 mt-0.5 flex-shrink-0" />
-                                <span className="text-sm">
-                                    {COMPANY_INFO.address.street},<br />
-                                    {COMPANY_INFO.address.city}, {COMPANY_INFO.address.state}<br />
-                                    {COMPANY_INFO.address.country} - {COMPANY_INFO.address.postalCode}
+                            <div className="flex items-start gap-3 text-white/70">
+                                <MapPin size={16} style={{ color: '#00A896' }} className="mt-1 flex-shrink-0" />
+                                <span>
+                                    {COMPANY_INFO.address.street}, {COMPANY_INFO.address.city}, {COMPANY_INFO.address.country}
                                 </span>
                             </div>
                         </div>
 
                         {/* Social Links */}
                         <div className="flex gap-3 mt-6">
-                            <a
-                                href={COMPANY_INFO.socialMedia.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 bg-white/10 flex items-center justify-center text-slate-400 hover:bg-teal-500 hover:text-white transition-all"
-                                aria-label="LinkedIn"
-                            >
-                                <Linkedin size={18} />
-                            </a>
-                            <a
-                                href={COMPANY_INFO.socialMedia.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 bg-white/10 flex items-center justify-center text-slate-400 hover:bg-teal-500 hover:text-white transition-all"
-                                aria-label="Twitter"
-                            >
-                                <Twitter size={18} />
-                            </a>
-                            <a
-                                href={COMPANY_INFO.socialMedia.facebook}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 bg-white/10 flex items-center justify-center text-slate-400 hover:bg-teal-500 hover:text-white transition-all"
-                                aria-label="Facebook"
-                            >
-                                <Facebook size={18} />
-                            </a>
-                            <a
-                                href={COMPANY_INFO.socialMedia.youtube}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 bg-white/10 flex items-center justify-center text-slate-400 hover:bg-teal-500 hover:text-white transition-all"
-                                aria-label="YouTube"
-                            >
-                                <Youtube size={18} />
-                            </a>
+                            {[
+                                { icon: Linkedin, href: '#' },
+                                { icon: Twitter, href: '#' },
+                                { icon: Facebook, href: '#' },
+                                { icon: Youtube, href: '#' }
+                            ].map((social, index) => (
+                                <a
+                                    key={index}
+                                    href={social.href}
+                                    className="w-10 h-10 flex items-center justify-center text-white/60 hover:text-white transition-colors"
+                                    style={{ background: 'rgba(255,255,255,0.05)' }}
+                                >
+                                    <social.icon size={18} />
+                                </a>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Navigation Columns */}
-                    {FOOTER_LINKS.map((section) => (
-                        <div key={section.title}>
-                            <h4 className="font-heading font-bold text-white mb-5 text-sm uppercase tracking-wider">
-                                {section.title}
-                            </h4>
-                            <ul className="space-y-3">
-                                {section.links.map((link) => (
-                                    <li key={link.label}>
-                                        <button
-                                            onClick={() => link.page && onNavigate(link.page)}
-                                            className="text-slate-400 text-sm hover:text-teal-400 transition-colors flex items-center gap-1 group"
-                                        >
-                                            <ChevronRight size={12} className="opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                                            {link.label}
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
-            </div>
+                    {/* Services */}
+                    <div>
+                        <h4 className="font-heading font-bold text-white mb-6 uppercase tracking-wider text-sm">
+                            Services
+                        </h4>
+                        <ul className="space-y-3">
+                            {footerLinks.services.map((link, index) => (
+                                <li key={index}>
+                                    <button
+                                        onClick={() => onNavigate(link.page as PageType)}
+                                        className="text-white/70 hover:text-white text-sm flex items-center gap-2 transition-colors"
+                                    >
+                                        <ChevronRight size={12} style={{ color: '#00A896' }} />
+                                        {link.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
-            {/* Compliance Badges */}
-            <div className="border-t border-white/10">
-                <div className="container-custom py-8">
-                    <div className="flex flex-wrap justify-center gap-x-10 gap-y-4">
-                        {COMPLIANCE_BADGES.map((badge, index) => (
-                            <div key={index} className="flex items-center gap-2 text-slate-500">
-                                {badge.iconName === 'ShieldCheck' && <ShieldCheck size={16} />}
-                                {badge.iconName === 'Award' && <Award size={16} />}
-                                {badge.iconName === 'Lock' && <Lock size={16} />}
-                                {badge.iconName === 'Globe' && <Globe size={16} />}
-                                <span className="text-xs font-medium uppercase tracking-wider">{badge.name}</span>
-                            </div>
-                        ))}
+                    {/* Company */}
+                    <div>
+                        <h4 className="font-heading font-bold text-white mb-6 uppercase tracking-wider text-sm">
+                            Company
+                        </h4>
+                        <ul className="space-y-3">
+                            {footerLinks.company.map((link, index) => (
+                                <li key={index}>
+                                    <button
+                                        onClick={() => onNavigate(link.page as PageType)}
+                                        className="text-white/70 hover:text-white text-sm flex items-center gap-2 transition-colors"
+                                    >
+                                        <ChevronRight size={12} style={{ color: '#00A896' }} />
+                                        {link.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Quick Links & Offices */}
+                    <div>
+                        <h4 className="font-heading font-bold text-white mb-6 uppercase tracking-wider text-sm">
+                            Quick Links
+                        </h4>
+                        <ul className="space-y-3 mb-8">
+                            {footerLinks.quickLinks.map((link, index) => (
+                                <li key={index}>
+                                    <button
+                                        onClick={() => onNavigate(link.page as PageType)}
+                                        className="text-white/70 hover:text-white text-sm flex items-center gap-2 transition-colors"
+                                    >
+                                        <ChevronRight size={12} style={{ color: '#00A896' }} />
+                                        {link.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <h4 className="font-heading font-bold text-white mb-4 uppercase tracking-wider text-sm">
+                            Global Offices
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                            {offices.map((office, index) => (
+                                <span
+                                    key={index}
+                                    className="px-3 py-1 text-xs text-white/70"
+                                    style={{ background: 'rgba(255,255,255,0.05)' }}
+                                >
+                                    {office.city}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-white/10 bg-navy-700">
-                <div className="container-custom py-6">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                        {/* Copyright */}
-                        <div className="text-slate-500 text-sm text-center md:text-left">
-                            © {currentYear} {COMPANY_INFO.name}. All Rights Reserved.
-                            <span className="hidden md:inline mx-2">|</span>
-                            <span className="block md:inline">Registered in India</span>
+            <div style={{ background: 'rgba(0,0,0,0.2)' }} className="py-6">
+                <div className="container-custom">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                        <div className="text-white/50 text-sm">
+                            © {currentYear} GIRIK Class. All rights reserved.
                         </div>
-
-                        {/* Legal Links */}
-                        <div className="flex flex-wrap justify-center gap-6 text-sm">
+                        <div className="flex flex-wrap items-center gap-6 text-sm">
                             <button
                                 onClick={() => onNavigate('privacy')}
-                                className="text-slate-500 hover:text-teal-400 transition-colors"
+                                className="text-white/50 hover:text-white transition-colors"
                             >
                                 Privacy Policy
                             </button>
                             <button
                                 onClick={() => onNavigate('terms')}
-                                className="text-slate-500 hover:text-teal-400 transition-colors"
+                                className="text-white/50 hover:text-white transition-colors"
                             >
                                 Terms of Service
                             </button>
                             <button
-                                onClick={() => onNavigate('privacy')}
-                                className="text-slate-500 hover:text-teal-400 transition-colors"
+                                onClick={() => onNavigate('contact')}
+                                className="text-white/50 hover:text-white transition-colors"
                             >
                                 Cookie Policy
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
 
-                        {/* Scroll to Top */}
-                        <button
-                            onClick={scrollToTop}
-                            className="w-10 h-10 bg-white/10 flex items-center justify-center text-slate-400 hover:bg-teal-500 hover:text-white transition-all"
-                            aria-label="Scroll to top"
-                        >
-                            <ArrowUp size={18} />
-                        </button>
+            {/* Accreditation Bar */}
+            <div style={{ background: '#00A896' }} className="py-3">
+                <div className="container-custom">
+                    <div className="flex flex-wrap items-center justify-center gap-6 text-white/90 text-xs">
+                        <span className="flex items-center gap-2">
+                            <Anchor size={14} /> IMO Recognized Organization
+                        </span>
+                        <span className="hidden md:inline">|</span>
+                        <span>40+ Flag State Authorizations</span>
+                        <span className="hidden md:inline">|</span>
+                        <span>ISO 9001 Certified</span>
+                        <span className="hidden md:inline">|</span>
+                        <span>EU MRV Accredited Verifier</span>
                     </div>
                 </div>
             </div>
